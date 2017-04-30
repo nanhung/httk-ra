@@ -1,3 +1,4 @@
+library("ggplot2")
 library("httk")
 my.new.data <- as.data.frame(c("A","B","C"),stringsAsFactors=FALSE)
 my.new.data <- cbind(my.new.data,as.data.frame(c("111-11-5","222-22-0","333-33-5"),
@@ -23,5 +24,19 @@ parameterize_3comp(chem.name="C")
 parameterize_steadystate(chem.name="C")
 
 calc_css(chem.name="B")
-calc_analytic_css(chem.name='B',output.units='mg/L',
-                  model='3compartmentss',concentration='plasma')
+
+css <- calc_analytic_css(chem.name='B',output.units='uM',
+                         model='3compartmentss',concentration='plasma')
+
+out<-solve_pbtk(chem.name="B", day =50, doses.per.day = 3)
+plot.data <- as.data.frame(out)
+c.vs.t <- ggplot(plot.data,aes(time,Cplasma))+geom_line()+
+  geom_hline(yintercept = css)
+print(c.vs.t)
+
+out<-solve_pbtk(chem.name="Bisphenol A", day =50, doses.per.day = 3)
+plot.data <- as.data.frame(out)
+
+plot(plot.data$Cven, plot.data$Cplasma)
+
+
