@@ -103,3 +103,163 @@ There were 50 or more warnings (use warnings() to see the first 50)
 There were 50 or more warnings (use warnings() to see the first 50)
 There were 50 or more warnings (use warnings() to see the first 50)
 There were 50 or more warnings (use warnings() to see the first 50)
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
+Error in unserialize(node$con) : 從連結讀取時發生了錯誤
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+此外: There were 50 or more warnings (use warnings() to see the first 50)
+停止執行
