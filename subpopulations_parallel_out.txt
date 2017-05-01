@@ -74,3 +74,27 @@ Warning messages:
 1: package 'data.table' was built under R version 3.3.2 
 kage 'data.table' was built under R version 3.3.2 
 2: package 'httk' was built under R version 3.3.3 
+starting worker pid=7216 on localhost:11220 at 22:07:42.600
+starting worker pid=4260 on localhost:11220 at 22:07:42.805
+starting worker pid=2024 on localhost:11220 at 22:07:43.029
+Warning messages:
+1: package 'data.table' was built under R version 3.3.2 
+2: package 'httk' was built under R version 3.3.3 
+Warning messages:
+1: package 'data.table' was built under R version 3.3.2 
+2: package 'httk' was built under R version 3.3.3 
+Warning messages:
+1: package 'data.table' was built under R version 3.3.2 
+2: package 'httk' was built under R version 3.3.3 
+starting worker pid=1420 on localhost:11236 at 22:19:44.023
+starting worker pid=10064 on localhost:11236 at 22:19:44.225
+starting worker pid=1920 on localhost:11236 at 22:19:44.443
+Warning messages:
+1: package 'data.table' was built under R version 3.3.2 
+2: package 'httk' was built under R version 3.3.3 
+Warning messages:
+1: package 'data.table' was built under R version 3.3.2 
+2: package 'httk' was built under R version 3.3.3 
+Warning messages:
+1: package 'data.table' was built under R version 3.3.2 
+2: package 'httk' was built under R version 3.3.3 

@@ -3,6 +3,8 @@
 
 library("httk")
 library("data.table")
+library("parallel") # to detectCores()
+
 
 nsamp<-1000
 #List subpop names
@@ -71,7 +73,8 @@ tmpfun <- function(gendernum, agelim, bmi_category, ExpoCast_grp,
   })
 }
 
-cluster <- parallel::makeCluster(10, 
+no_cores <- parallel::detectCores() - 1
+cluster <- parallel::makeCluster(no_cores, 
                                  outfile='subpopulations_parallel_out.txt')
 
 evalout <- parallel::clusterEvalQ(cl=cluster,
