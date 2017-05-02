@@ -98,3 +98,15 @@ Warning messages:
 Warning messages:
 1: package 'data.table' was built under R version 3.3.2 
 2: package 'httk' was built under R version 3.3.3 
+starting worker pid=10700 on localhost:11460 at 19:20:15.184
+starting worker pid=9328 on localhost:11460 at 19:20:15.431
+starting worker pid=7084 on localhost:11460 at 19:20:15.647
+Warning messages:
+1: package 'data.table' was built under R version 3.3.2 
+2: package 'httk' was built under R version 3.3.3 
+Warning messages:
+1: package 'data.table' was built under R version 3.3.2 
+2: package 'httk' was built under R version 3.3.3 
+Warning messages:
+1: package 'data.table' was built under R version 3.3.2 
+2: package 'httk' was built under R version 3.3.3 

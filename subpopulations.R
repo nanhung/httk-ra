@@ -1,7 +1,7 @@
 # Create the "data" directory first
 # This vignette provides the code used to generate the virtual populations for the ten subpopulations of interest, plus a non-obese adult subpopulation.
 
-library("httk")
+library("httk") # to httkpop_generate
 library("data.table")
 library("parallel") # to detectCores()
 
@@ -102,3 +102,34 @@ out_dr <- parallel::clusterMap(cl=cluster,
                                MoreArgs = list(nsamp = nsamp,
                                                method = 'direct resampling'))
 parallel::stopCluster(cluster)
+
+# Read created data #############################
+vi_Total<-readRDS("data/httkpop_vi_Total.Rdata")
+View(vi_Total)
+
+##########################################################
+## Not run:
+#Simply generate a virtual population of 100 individuals,
+#using the direct-resampling method
+set.seed(42)
+httkpop_generate(method='direct resampling', nsamp=100)
+#Generate a population using the virtual-individuals method,
+#including 80 females and 20 males,
+#including only ages 20-65,
+#including only Mexican American and
+#Non-Hispanic Black individuals,
+#including only non-obese individuals
+vi_data<-httkpop_generate(method = 'virtual individuals',
+                 gendernum=list(Female=80,
+                                Male=20),
+                 agelim_years=c(20,65),
+                 reths=c('Mexican American',
+                         'Non-Hispanic Black'),
+                 weight_category=c('Underweight',
+                                   'Normal',
+                                   'Overweight'))
+
+View(vi_Total)
+## End(Not run)
+
+
