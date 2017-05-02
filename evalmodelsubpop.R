@@ -4,6 +4,7 @@
 library(httk)
 library(data.table)
 library(EnvStats)
+library(parallel) # to detectCores()
 
 chemlist <- httk::get_cheminfo(info='CAS', exclude.fub.zero=FALSE)
 
@@ -125,7 +126,7 @@ doforeachchem <- function(this.chemcas,
   return(dat.chem.out)
 }
 
-numcluster <- 40 #The number of processors to use in parallel
+numcluster <- parallel::detectCores() - 1 #The number of processors to use in parallel
 #Note: This will depend on how many your machine has available!
 cluster <- parallel::makeCluster(numcluster, outfile='subpoprun_parallel_out.txt')
 parallel::clusterEvalQ(cl=cluster,
@@ -272,7 +273,7 @@ model <- '3compartmentss'
 popmethod <- 'indepMC'
 TeachingDemos::char2seed("Caroline Ring")
 indep.bio <- indep_gen()
-numcluster <- 40 #The number of processors to use in parallel
+numcluster <- parallel::detectCores() - 1 #The number of processors to use in parallel
 #Note: This will depend on how many your machine has available!
 cluster <- parallel::makeCluster(numcluster, outfile='indepMC_evalmodels_parallel_out.txt')
 parallel::clusterEvalQ(cl=cluster,
@@ -312,3 +313,7 @@ for (poormetab in c(TRUE, FALSE)){
 }
 
 parallel::stopCluster(cluster)
+
+# Read created data #############################
+allchemsData<-readRDS("data/allchems_ReproAgeFemale_dr_poormetab_FALSE_fup.censor_FALSE_3compartmentss_FuptoFub.Rdata")
+View(allchemsData)

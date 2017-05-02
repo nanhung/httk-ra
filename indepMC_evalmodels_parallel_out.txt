@@ -115,3 +115,11 @@ package 'httk' was built under R version 3.3.3
 Warning message:
 package 'httk' was built under R version 3.3.3 
 package 'httk' was built under R version 3.3.3 
+starting worker pid=12084 on localhost:11460 at 22:39:24.043
+starting worker pid=1668 on localhost:11460 at 22:39:24.292
+starting worker pid=4692 on localhost:11460 at 22:39:24.557
+Warning message:
+package 'httk' was built under R version 3.3.3 
+package 'httk' was built under R version 3.3.3 
+Warning message:
+package 'httk' was built under R version 3.3.3 

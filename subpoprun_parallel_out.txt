@@ -263,3 +263,9 @@ Error in unserialize(node$con) : 從連結讀取時發生了錯誤
 Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
 此外: There were 50 or more warnings (use warnings() to see the first 50)
 停止執行
+starting worker pid=2164 on localhost:11460 at 21:59:24.948
+starting worker pid=2380 on localhost:11460 at 21:59:25.191
+starting worker pid=8540 on localhost:11460 at 21:59:25.405
+There were 50 or more warnings (use warnings() to see the first 50)
+There were 50 or more warnings (use warnings() to see the first 50)
+There were 50 or more warnings (use warnings() to see the first 50)
