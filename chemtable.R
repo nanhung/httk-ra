@@ -34,9 +34,21 @@ c.vs.t <- ggplot(plot.data,aes(time,Cplasma))+geom_line()+
   geom_hline(yintercept = css)
 print(c.vs.t)
 
-out<-solve_pbtk(chem.name="Bisphenol A", day =50, doses.per.day = 3)
+#theophyline
+out<-solve_pbtk(chem.cas="58-55-9", day =2, doses.per.day = 1) 
 plot.data <- as.data.frame(out)
+css <- calc_analytic_css(chem.cas="58-55-9",output.units='uM',
+                         model='3compartmentss',concentration='plasma')
+c.vs.t <- ggplot(plot.data,aes(time,Cplasma))+geom_line()+
+  geom_hline(yintercept = css)
 
 plot(plot.data$Cven, plot.data$Cplasma)
 
-
+#Acetaminophen
+which(chem.dt$chemcas == "103-90-2")
+out<-solve_pbtk(chem.cas = "103-90-2", day =50, doses.per.day = 1)
+plot.data <- as.data.frame(out)
+css <- calc_analytic_css(chem.cas="103-90-2",output.units='uM',
+                         model='3compartmentss',concentration='plasma')
+c.vs.t <- ggplot(plot.data,aes(time,Cplasma))+geom_line()+
+  geom_hline(yintercept = css)

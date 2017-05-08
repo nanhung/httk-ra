@@ -40,6 +40,9 @@ dat <- rbindlist(lapply(ExpoCast.groups,
 
 chem.dt <- as.data.table(httk::get_cheminfo(info=c('CAS', 'Compound'),
                                             exclude.fub.zero=FALSE))
+
+which(chem.dt$chemcas == "58-55-9")
+
 setnames(chem.dt, 'CAS', 'chemcas')
 dat <- merge(dat, chem.dt, by='chemcas')
 
