@@ -52,3 +52,12 @@ css <- calc_analytic_css(chem.cas="103-90-2",output.units='uM',
                          model='3compartmentss',concentration='plasma')
 c.vs.t <- ggplot(plot.data,aes(time,Cplasma))+geom_line()+
   geom_hline(yintercept = css)
+
+# Midazolam
+which(chem.dt$chemcas == "59467-70-8")
+out<-solve_pbtk(chem.cas = "59467-70-8", day =50, doses.per.day = 1)
+plot.data <- as.data.frame(out)
+css <- calc_analytic_css(chem.cas="103-90-2",output.units='uM',
+                         model='3compartmentss',concentration='plasma')
+c.vs.t <- ggplot(plot.data,aes(time,Cplasma))+geom_line()+
+  geom_hline(yintercept = css)
