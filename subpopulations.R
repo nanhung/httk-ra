@@ -1,5 +1,6 @@
 # Create the "data" directory first
-# This vignette provides the code used to generate the virtual populations for the ten subpopulations of interest, plus a non-obese adult subpopulation.
+# This vignette provides the code used to generate the virtual populations 
+# for the ten subpopulations of interest, plus a non-obese adult subpopulation.
 
 library("httk") # to httkpop_generate
 library("data.table")
@@ -38,14 +39,12 @@ agelim<-c(list(c(0,79),
 bmi_category <- c(rep(list(c('Underweight', 
                              'Normal',
                              'Overweight',
-                             'Obese')),
-                      5),
+                             'Obese')),5),
                   list('Obese', c('Underweight','Normal', 'Overweight')),
                   rep(list(c('Underweight', 
                              'Normal',
                              'Overweight',
-                             'Obese')),
-                      3),
+                             'Obese')),3),
                   list(c('Underweight', 'Normal', 'Overweight')))
 
 tmpfun <- function(gendernum, agelim, bmi_category, ExpoCast_grp,
@@ -73,7 +72,7 @@ tmpfun <- function(gendernum, agelim, bmi_category, ExpoCast_grp,
   })
 }
 
-no_cores <- parallel::detectCores() - 1
+no_cores <- parallel::detectCores()
 cluster <- parallel::makeCluster(no_cores, 
                                  outfile='subpopulations_parallel_out.txt')
 
@@ -84,7 +83,7 @@ parallel::clusterExport(cl = cluster,
                         varlist = 'tmpfun')
 #Set seeds on all workers for reproducibility
 parallel::clusterSetRNGStream(cluster, 
-                              TeachingDemos::char2seed("Caroline Ring"))
+                              TeachingDemos::char2seed("Nanhung Hsieh"))
 out_vi <- parallel::clusterMap(cl=cluster,
                                fun = tmpfun,
                                gendernum=gendernum,
@@ -107,6 +106,8 @@ parallel::stopCluster(cluster)
 vi_Total<-readRDS("data/httkpop_vi_Total.Rdata")
 View(vi_Total)
 # Use this method to create prior knowledge
+prior<-get_httk_params(vi_Total, chemcas="58-55-9", "1compartment", poormetab=F, fup.censor=T,
+                       sigma.factor = 0.3, Clint.vary = TRUE, lod = 0.01)
 prior<-get_httk_params(vi_Total, chemcas="58-55-9", "3compartmentss", poormetab=F, fup.censor=T,
                 sigma.factor = 0.3, Clint.vary = TRUE, lod = 0.01)
 
