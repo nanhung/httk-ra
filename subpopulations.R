@@ -106,9 +106,9 @@ parallel::stopCluster(cluster)
 vi_Total<-readRDS("data/httkpop_vi_Total.Rdata")
 View(vi_Total)
 # Use this method to create prior knowledge
-prior<-get_httk_params(vi_Total, chemcas="58-55-9", "1compartment", poormetab=F, fup.censor=T,
+prior.1<-get_httk_params(vi_Total, chemcas="58-55-9", "1compartment", poormetab=F, fup.censor=T,
                        sigma.factor = 0.3, Clint.vary = TRUE, lod = 0.01)
-prior<-get_httk_params(vi_Total, chemcas="58-55-9", "3compartmentss", poormetab=F, fup.censor=T,
+prior.3<-get_httk_params(vi_Total, chemcas="58-55-9", "3compartmentss", poormetab=F, fup.censor=T,
                 sigma.factor = 0.3, Clint.vary = TRUE, lod = 0.01)
 
 ##########################################################
