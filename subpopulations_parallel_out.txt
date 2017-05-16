@@ -110,3 +110,35 @@ Warning messages:
 Warning messages:
 1: package 'data.table' was built under R version 3.3.2 
 2: package 'httk' was built under R version 3.3.3 
+starting worker pid=7872 on localhost:11123 at 11:21:43.779
+starting worker pid=7960 on localhost:11123 at 11:21:44.359
+starting worker pid=8296 on localhost:11123 at 11:21:44.592
+starting worker pid=4544 on localhost:11123 at 11:21:44.826
+starting worker pid=4660 on localhost:11123 at 11:21:45.055
+starting worker pid=3268 on localhost:11123 at 11:21:45.282
+starting worker pid=7520 on localhost:11123 at 11:21:45.507
+starting worker pid=2848 on localhost:11123 at 11:21:45.736
+Error in unserialize(node$con) : error reading from connection
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
+Error in unserialize(node$con) : error reading from connection
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
+Error in unserialize(node$con) : error reading from connection
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
+Error in unserialize(node$con) : error reading from connection
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
+Error in unserialize(node$con) : error reading from connection
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
+Error in unserialize(node$con) : error reading from connection
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
+Error in unserialize(node$con) : error reading from connection
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
+Error in unserialize(node$con) : error reading from connection
+Calls: <Anonymous> ... doTryCatch -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
