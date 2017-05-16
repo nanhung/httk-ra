@@ -1,0 +1,51 @@
+# ==============================================================================
+#
+# ==============================================================================
+
+States  = {A_gutlumen,       # Quantity in central compartment (micromoles)
+           A_rest}; 
+
+Outputs = {C_rest,          # Concentration in central compartment (microM)
+           A_total};        # Total quantity for mass balance (mg/kg)
+
+Inputs  = {Oral_input};     # Drug input in micromoles
+
+
+# ------------------------
+# Parameters
+# ------------------------
+
+BDM = 70; # body weight (kg)
+
+MW = 100; # molcular weight
+
+# Oral input modeling
+
+n          = 1.0; # input times
+IngDose    = 0.0; # ingested input (mg)
+time       = 0.0; # initial input time
+
+Oral_input = Spikes(n, IngDose, time);
+
+# Elimination rate constant (1/h)
+Ke = 0;
+
+# Volumes (L)
+V_dist  = 1; 
+
+# Transfer rate constants between compartments (1/h)
+k_gutabs = 1;
+K_elim = 1;
+
+Dynamics {
+  dt (A_gutlumen) = - k_gutabs * A_gutlumen;
+  dt (A_rest)  = k_gutabs * A_gutlumen - k_elim * A_rest;
+  dt (A_elim)  = k_elim * A_rest; 
+}
+
+CalcOutputs {
+  C_rest  = A_rest  / V_dist;
+  A_total   = A_gutlumen + A_rest + A_elim;
+}
+
+End.
