@@ -11,13 +11,12 @@
 # - concentrations of substances in microM
 # ------------------------
 
+States  = {Q_rest,
+           Q_elim
+}; 
 
-States  = {Q_gutlumen,      # Quantity in gutlumen compartment (micromoles)
-           Q_rest,          # ~           rest compartment
-           Q_elim};         # ~           eliminated
-
-Outputs = {C_rest,        # ~                   rest compartment
-           Q_total};        # Total quantity for mass balance
+Outputs = {C_rest,          # Concentration in central compartment (microM)
+           Q_total};        # Total quantity for mass balance (mg/kg)
 
 Inputs  = {Oral_input};     # Drug input in micromoles
 
@@ -26,82 +25,29 @@ Inputs  = {Oral_input};     # Drug input in micromoles
 # Parameters
 # ------------------------
 
-
-# Chemical Parameters
-MW;   # Molecualar Weight
-
-# Anatomical Parameters
-BW = 70.; lnBW = log(70.);  # Body weight (kg). 
-
-
 # Oral input modeling
-mgkg_flag=1.; # If the flag is 1, we have a mg/kg dose
-OralDose_mgkg = 0.; lnOralDose_mgkg = log(2E-9);     # Oral Dose given (mg/kg)
-OralDose_mg = 0.;  lnOralDose_mg = log(2E-9);        # Oral Dose given (mg)
-ODose_mg;
-ODose_umol;
 
-
+IngDose    = 0.0; # ingested input (micromoles)
 Period     = 0.0; # period of the exposure/no exposure cycle (h)
-Ka         = 1.0; lnKa = log(1.); # Gut absortion rate constant (1/h)
 Tlag       = 0.0; # Absorption lagtime (h)
-Oral_input = PerExp (ODose_umol, Period, Tlag, Ka);
-
-# Elimination rate constant (1/h)
-Ke = 0.1; lnKe = log(.1);
+Ka         = 0.0; # Intestinal absortion rate constant (1/h)
+Oral_input = PerExp (IngDose, Period, Tlag, Ka);
 
 # Volumes (L)
-V_dist = 1; lnV_dist = log(1.);
+V_dist  = 1; 
 
-
-# Population Mean Parameters (M_...)
-
-
-M_BW; M_lnBW;
-M_V_dist; M_lnV_dist;
-M_Ka; M_ln_Ka;
-
-
-#Population Variance Parameters (V_...)
-
-
-V_BW; V_lnBW;
-V_V_dist; V_lnV_dist;
-V_Ka; V_ln_Ka;
-
-
-#  Data Error (Ve_...)
-# Needed if you are using an error distribution, rather than error at specific time points.
-
-Ve_C_rest; Ve_lnC_rest;
-
-
-Initialize {
-
-BW = exp(lnBW);
-
-# Inital Dosing
-#--------------
-OralDose_mgkg = exp(lnOralDose_mgkg);  
-OralDose_mg = exp(lnOralDose_mg);
-
-ODose_mg = (mgkg_flag>0.5 ? OralDose_mgkg*BW: OralDose_mg); # ingested input (mg)
-ODose_umol  = ODose_mg*(1000./MW); # ingested input (micromoles)
-
-}
+# Transfer rate constants between compartments (1/h)
+k_gutabs = 1;
+k_elim = 1;
 
 Dynamics {
-  dt (Q_elim)    = Ke * Q_rest;
-  dt (Q_rest)    = dt(Q_rest) - dt(Q_elim);
-  dt (Q_gutlumen) = Ka * Oral_input - dt(Q_rest);
-  
-  C_rest = Q_rest  / V_dist;
-  Q_total    = Q_gutlumen + Q_rest + Q_elim;
+  dt (Q_rest)  = k_gutabs * Oral_input - k_elim * Q_rest;
+  dt (Q_elim)  = k_elim * Q_rest; 
 }
 
 CalcOutputs {
-  C_rest  = (C_rest > 0 ? log(C_rest):-20.); 
-  Q_total = (Q_total > 0 ? log(Q_total):-20.);
+  C_rest  = Q_rest  / V_dist;
+  Q_total   = Q_rest + Q_elim;
 }
 
 End.

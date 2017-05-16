@@ -1,0 +1,62 @@
+# ==============================================================================
+# Two-compartment model with first-order absorption rate and 
+# linear elimination (metabolism or other route of elimination) 
+#
+# version 1
+#
+# Units: 
+# - time in hours
+# - volumes in liters
+# - masses of substances in micromoles
+# - concentrations of substances in microM
+#
+# Frederic Bois - Dec 2016
+# ==============================================================================
+
+States  = {Q_central,       # Quantity in central compartment (micromoles)
+           Q_periph,        # ~           peripheral compartment
+           Q_elim};         # ~        eliminated
+
+Outputs = {C_central,       # Concentration in central compartment (microM)
+           C_periph,        # ~                peripheral compartment
+           Q_total};        # Total quantity for mass balance
+
+Inputs  = {Oral_input};     # Drug input in micromoles
+
+
+# ------------------------
+# Parameters
+# ------------------------
+
+# Oral input modeling
+
+IngDose    = 0.0; # ingested input (micromoles)
+Period     = 0.0; # period of the exposure/no exposure cycle (h)
+Tlag       = 0.0; # Absorption lagtime (h)
+Ka         = 0.0; # Intestinal absortion rate constant (1/h)
+Oral_input = PerExp (IngDose, Period, Tlag, Ka);
+
+# Elimination rate constant (1/h)
+Ke = 0;
+
+# Volumes (L)
+V_central = 1;
+V_periph  = 1; 
+
+# Transfer rate constants between compartments (1/h)
+Kc2p = 0;
+Kp2c = 0;
+
+Dynamics {
+  dt (Q_elim)    = Ke * Q_central;
+  dt (Q_periph)  = Kc2p * Q_central - Kp2c * Q_periph;
+  dt (Q_central) = Ka * Oral_input - dt(Q_elim) - dt(Q_periph);
+}
+
+CalcOutputs {
+  C_central = Q_central / V_central;
+  C_periph  = Q_periph  / V_periph;
+  Q_total   = Q_central + Q_periph + Q_elim;
+}
+
+End.
