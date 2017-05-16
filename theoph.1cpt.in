@@ -15,22 +15,25 @@
 OutputFile ("theoph.1cpt.out");
 Integrate (Lsodes, 1e-12, 1e-15, 1);
 
+MW = 180.17; # Theophylline
 
-IngDose    = 1;  # ingested dose (micromoles)
+IngDose    = 55;  # ingested dose (mg)
 Period     = 24;  # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0;  # Absorption lagtime (h)
-Ka         = 1;   # Intestinal absortion rate (micromole/h)
+Ka         = 1;   # Intestinal absortion rate (/h)
 
 # Volumes (L)
 V_dist = 0.7; 
 
-# Rate constant (micromole/h)
+# Rate constant (/h)
 k_elim = 0.2;
 k_gutabs = 1;
 
 
 Simulation {
-  PrintStep (Oral_input, C_rest, Q_total, 0, 96, 1);
+    #PrintStep (Oral_input, 0, 96, 1);
+    #PrintStep (Q_total, 0, 96, 1);
+    PrintStep (C_rest, 0, 96, 1);
 }
 
 End.

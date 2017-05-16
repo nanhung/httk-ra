@@ -1,5 +1,5 @@
 # ------------------------
-# Two-compartment model with first-order absorption rate and 
+# One-compartment model with first-order absorption rate and 
 # linear elimination (metabolism or other route of elimination) 
 #
 # version 1
@@ -15,8 +15,8 @@ States  = {Q_rest,
            Q_elim
 }; 
 
-Outputs = {C_rest,          # Concentration in central compartment (microM)
-           Q_total};        # Total quantity for mass balance (mg/kg)
+Outputs = {C_rest,          # Concentration in central compartment (uM)
+           Q_total};        # Total quantity for mass balance (mg)
 
 Inputs  = {Oral_input};     # Drug input in micromoles
 
@@ -25,18 +25,20 @@ Inputs  = {Oral_input};     # Drug input in micromoles
 # Parameters
 # ------------------------
 
+MW; # molecular weight (g/mole)
+
 # Oral input modeling
 
-IngDose    = 0.0; # ingested input (micromoles)
+IngDose    = 0.0; # ingested input (mg)
 Period     = 0.0; # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0; # Absorption lagtime (h)
-Ka         = 0.0; # Intestinal absortion rate (micromole/h)
+Ka         = 0.0; # Intestinal absortion rate (/h)
 Oral_input = PerExp (IngDose, Period, Tlag, Ka);
 
 # Volumes (L)
 V_dist  = 1; 
 
-# Transfer rate constants between compartments (1/h)
+# Transfer rate constants between compartments (/h)
 k_gutabs;
 k_elim;
 
@@ -46,7 +48,7 @@ Dynamics {
 }
 
 CalcOutputs {
-  C_rest  = Q_rest  / V_dist;
+  C_rest  = Q_rest  / V_dist / MW * 1000;
   Q_total = Q_rest + Q_elim;
 }
 
