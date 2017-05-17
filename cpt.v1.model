@@ -29,7 +29,7 @@ MW; # molecular weight (g/mole)
 
 # Oral input modeling
 
-IngDose    = 0.0; # ingested input (mg)
+IngDose    = 0.0; # ingested input (mg/kg)
 Period     = 0.0; # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0; # Absorption lagtime (h)
 Ka         = 0.0; # Intestinal absortion rate (/h)
