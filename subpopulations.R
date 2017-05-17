@@ -113,7 +113,7 @@ prior.1<-get_httk_params(vi_Total, chemcas="58-55-9", "1compartment", poormetab=
 prior.3<-get_httk_params(vi_Total, chemcas="58-55-9", "3compartmentss", poormetab=F, fup.censor=T,
                 sigma.factor = 0.3, Clint.vary = TRUE, lod = 0.01)
 # test 1comp
-out <- solve_1comp(chem.cas="58-55-9", day = 10, doses.per.day = 1, output.units='uM', plots=T)
+out <- solve_1comp(chem.cas="58-55-9", day = 4, doses.per.day = 1, output.units='uM', plots=T)
 plot.data <- as.data.frame(out)
 css <- calc_analytic_css(chem.cas="58-55-9",output.units='uM',
                          model='1compartment',concentration='plasma')
