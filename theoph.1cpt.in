@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
-# Simulation file for two-compartment model with first order absorption.
+# Simulation file for one-compartment model with first order absorption.
 # 
-# Oral dosing of drug X is simply simulated.
+# Oral dosing of theophylline is simply simulated.
 #
 # Units: 
 # - time in hours
@@ -9,7 +9,6 @@
 # - masses of substances in micromoles
 # - concentrations of substances in microM
 #
-# Frederic Bois - Dec 2016
 #-------------------------------------------------------------------------------
 
 OutputFile ("theoph.1cpt.out");
@@ -17,23 +16,26 @@ Integrate (Lsodes, 1e-12, 1e-15, 1);
 
 MW = 180.17; # Theophylline
 
-IngDose    = 55;  # ingested dose (mg)
-Period     = 24;  # period of the exposure/no exposure cycle (h)
-Tlag       = 0.0;  # Absorption lagtime (h)
-Ka         = 1;   # Intestinal absortion rate (/h)
+Fgutabs    = 0.98;
+IngDose    = 1.0;   # ingested dose (mg)
+Period     = 24;    # period of the exposure/no exposure cycle (h)
+Tlag       = 0.0;   # Absorption lagtime (h)
+Ka         = 1.0;   # Intestinal absortion rate (/h)
 
 # Volumes (L)
-V_dist = 0.7; 
+V_dist = 0.6796425; 
 
 # Rate constant (/h)
-k_elim = 0.2;
-k_gutabs = 1;
-
+k_elim = 0.2564527;
 
 Simulation {
-    #PrintStep (Oral_input, 0, 96, 1);
-    #PrintStep (Q_total, 0, 96, 1);
-    PrintStep (C_rest, 0, 96, 1);
+    #PrintStep (Oral_input, Q_rest, Q_elim, 0, 96, 0.25);
+    PrintStep (Oral_input_uM, C_rest, C_elim, 0, 96, 0.25);
+    #PrintStep (Q_total, 0, 96, 0.25);
+    #PrintStep (Q_rest, 0, 96, 0.25);
+    #PrintStep (C_rest, 0, 96, 0.25);
+    #PrintStep (Q_elim, 0, 96, 0.25);
+    #PrintStep (AUC_Q_rest, 0, 96, 0.25);
 }
 
 End.

@@ -12,10 +12,12 @@
 # ------------------------
 
 States  = {Q_rest,
-           Q_elim
+           Q_elim,
 }; 
 
-Outputs = {C_rest,          # Concentration in central compartment (uM)
+Outputs = {Oral_input_uM,
+           C_rest,          # Concentration in central compartment (uM)
+           C_elim,          # Total metabolize concentration (uM)
            Q_total};        # Total quantity for mass balance (mg)
 
 Inputs  = {Oral_input};     # Drug input in micromoles
@@ -29,26 +31,33 @@ MW; # molecular weight (g/mole)
 
 # Oral input modeling
 
-IngDose    = 0.0; # ingested input (mg/kg)
+Absdose;
+IngDose    = 1.0; # ingested input (mg)
+Fgutabs    = 1.0; #
 Period     = 0.0; # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0; # Absorption lagtime (h)
 Ka         = 0.0; # Intestinal absortion rate (/h)
-Oral_input = PerExp (IngDose, Period, Tlag, Ka);
+Oral_input = PerExp (Absdose, Period, Tlag, Ka);
 
 # Volumes (L)
 V_dist  = 1; 
 
 # Transfer rate constants between compartments (/h)
-k_gutabs;
-k_elim;
+k_elim = 1;
+
+Initialize{
+    Absdose = IngDose * Fgutabs;
+}
 
 Dynamics {
-  dt (Q_rest)  = k_gutabs * Oral_input - k_elim * Q_rest;
+  dt (Q_rest)  = Oral_input - k_elim * Q_rest;
   dt (Q_elim)  = k_elim * Q_rest; 
 }
 
 CalcOutputs {
+  Oral_input_uM = Oral_input * 1000 / MW;
   C_rest  = Q_rest  / V_dist / MW * 1000;
+  C_elim  = Q_elim * 1000 / MW;
   Q_total = Q_rest + Q_elim;
 }
 
