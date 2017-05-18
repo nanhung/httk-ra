@@ -1,0 +1,77 @@
+Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
+MCMC("theoph_groups_1234.csv", "", "", 5000, 0, 10, 5000, 1234); # Full calibration
+
+
+Level { # Population Level
+
+# Population parameters to be calibrated
+# ======================================
+# Formating for following section
+# Distrib(M_lnparam, Uniform, low, high)
+# Remove the ... and fill these in
+# ======================================
+
+Distrib(M_lnV_dist, TruncNormal, -0.4831644, 0.2741961, -2.110483, -0.08538681);
+Distrib(M_lnk_e, TruncNormal, -1.662183, 0.4658197, -3.031792, 0.1113578);
+
+
+Distrib(V_lnV_dist, InvGamma, 2.25, 0.3125);
+Distrib(V_lnk_e, InvGamma, 2.25, 0.3125);
+
+Distrib(Ve_lnC_rest, LogUniform, 0.01, 0.5);
+
+Likelihood(Data(lnC_rest), Normal_v, Prediction(lnC_rest), Ve_lnC_rest);
+
+
+Level { # Group Level
+Distrib(lnV_dist, TruncNormal_v, M_lnV_dist, V_lnV_dist,  -2.110483, -0.08538681);
+Distrib(lnk_e, TruncNormal_v, M_lnk_e, V_lnk_e, -3.031792, 0.1113578);
+
+Level { # Group A
+#--------------
+
+Distrib(lnV_dist, TruncNormal_v, lnV_dist, V_lnV_dist, -2.110483, -0.08538681);
+Distrib(lnk_e, TruncNormal_v, lnk_e, V_lnk_e, -3.031792, 0.1113578);
+
+Simulation { # Sim. 1
+
+MW = 180.17; # Theophylline
+
+Fgutabs    = 0.98;
+IngDose    = 4.02;   # ingested dose (mg)
+Period     = 24;    # period of the exposure/no exposure cycle (h)
+Tlag       = 0.0;   # Absorption lagtime (h)
+k_a        = 1.0;   # Intestinal absortion rate (/h)
+
+Print(lnC_rest, 0.00  0.25  0.57  1.12  2.02  3.82  5.10  7.03  9.05 12.12 24.37);
+Data(lnC_rest, 1.412783 2.757692 3.596402 4.065263 3.981881 3.863322 3.837346 3.724783 3.643959 3.495597 2.901731);
+}
+
+} # End Group A
+
+Level { # Group B
+#--------------
+
+Distrib(lnV_dist, TruncNormal_v, lnV_dist, V_lnV_dist, -2.110483, -0.08538681);
+Distrib(lnk_e, TruncNormal_v, lnk_e, V_lnk_e, -3.031792, 0.1113578);
+
+Simulation { # Sim. 2
+
+MW = 180.17; # Theophylline
+
+Fgutabs    = 0.98;
+IngDose    = 5.50;   # ingested dose (mg)
+Period     = 24;    # period of the exposure/no exposure cycle (h)
+Tlag       = 0.0;   # Absorption lagtime (h)
+k_a        = 1.0;   # Intestinal absortion rate (/h)
+
+Print(lnC_rest, 0.00  0.37  0.77  1.02  2.05  3.55  5.05  7.08  9.38 12.10 23.70);
+Data(lnC_rest, 0.2867714 2.7751442 3.3663851 3.5717470 3.7718502 4.0372554 3.9309149 3.7958262 3.6796005 3.4508390 2.5976553);
+} # End Sim.2
+
+} # End Group B
+
+} # End Group Level
+    
+} # End Population Level
+End.
