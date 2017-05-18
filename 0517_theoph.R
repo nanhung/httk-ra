@@ -2,11 +2,14 @@
 sim <- read.delim("theoph.1cpt.out", skip = 2)
 names(sim)
 
+# Validate the httk and mcsim result
 par(mfrow = c(2,2), mar = c(4, 5, 2, 1))
 for (i in 2:4) {
   plot(sim$Time, sim[,i], xlab = "Time (hour)", ylab = "",
        main = names(sim)[i], las = 1, col = "red", lwd = 2,
        type = "l")
 }
-dev.off()
+
+source("theoph.post.R")
+
 
