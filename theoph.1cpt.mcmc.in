@@ -1,5 +1,5 @@
 Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC("theoph_groups_4567.csv", "", "", 10000, 0, 10, 10000, 4567); # Full calibration
+MCMC("theoph_groups_4567.1.csv", "theoph_groups_4567.csv", "", 10000, 1, 10, 10000, 4567); # Full calibration
 
 
 Level { # Population Level
@@ -43,8 +43,8 @@ Period     = 24;    # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0;   # Absorption lagtime (h)
 k_a        = 1.0;   # Intestinal absortion rate (/h)
 
-Print(lnC_rest, 0.00  0.25  0.57  1.12  2.02  3.82  5.10  7.03  9.05 12.12 24.37);
-Data(lnC_rest, 1.412783 2.757692 3.596402 4.065263 3.981881 3.863322 3.837346 3.724783 3.643959 3.495597 2.901731);
+Print(lnC_rest,  0.25  0.57  1.12  2.02  3.82  5.10  7.03  9.05 12.12 24.37);
+Data(lnC_rest,  2.757692 3.596402 4.065263 3.981881 3.863322 3.837346 3.724783 3.643959 3.495597 2.901731);
 }
 
 } # End Group A
@@ -65,8 +65,8 @@ Period     = 24;    # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0;   # Absorption lagtime (h)
 k_a        = 1.0;   # Intestinal absortion rate (/h)
 
-Print(lnC_rest, 0.00  0.37  0.77  1.02  2.05  3.55  5.05  7.08  9.38 12.10 23.70);
-Data(lnC_rest, 0.2867714 2.7751442 3.3663851 3.5717470 3.7718502 4.0372554 3.9309149 3.7958262 3.6796005 3.4508390 2.5976553);
+Print(lnC_rest, 0.37  0.77  1.02  2.05  3.55  5.05  7.08  9.38 12.10 23.70);
+Data(lnC_rest, 2.7751442 3.3663851 3.5717470 3.7718502 4.0372554 3.9309149 3.7958262 3.6796005 3.4508390 2.5976553);
 } # End Sim.2
 
 } # End Group B
