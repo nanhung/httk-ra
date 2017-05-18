@@ -20,13 +20,13 @@ Fgutabs    = 0.98;
 IngDose    = 1.0;   # ingested dose (mg)
 Period     = 24;    # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0;   # Absorption lagtime (h)
-Ka         = 1.0;   # Intestinal absortion rate (/h)
+k_a        = 1.0;   # Intestinal absortion rate (/h)
 
 # Volumes (L)
 V_dist = 0.6796425; 
 
 # Rate constant (/h)
-k_elim = 0.2564527;
+k_e = 0.2564527;
 
 Simulation {
     #PrintStep (Oral_input, Q_rest, Q_elim, 0, 96, 0.25);

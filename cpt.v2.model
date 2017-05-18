@@ -17,9 +17,9 @@ States  = {A_rest,          # ~           rest compartment
 
 Outputs = {Oral_input_uM,
            C_rest,         # Quantity in rest compartment
+           C_elim,
            A_total,        # Total quantity for mass balance
-           lnC_rest,
-           lnA_total};        
+           lnC_rest};        
 
 Inputs  = {Oral_input};     # Drug input in micromoles
 
@@ -33,6 +33,13 @@ Inputs  = {Oral_input};     # Drug input in micromoles
 MW;   # Molecualar Weight
 
 
+# Volumes (L)
+V_dist = 1; lnV_dist = log(1.);
+
+# Rate constant (/h)
+k_a = 1.0; lnk_a = log(1.0); # Intestinal absortion rate (/h)
+k_e = 0.1; lnk_e = log(.1);
+
 # Oral input modeling
 
 Absdose;
@@ -42,13 +49,6 @@ Period     = 0.0; # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0; # Absorption lagtime (h)
 
 Oral_input = PerExp (Absdose, Period, Tlag, k_a);
-
-# Volumes (L)
-V_dist = 1; lnV_dist = log(1.);
-
-# Rate constant (/h)
-k_a = 1.0; lnk_a = log(1.0); # Intestinal absortion rate (/h)
-k_e = 0.1; lnk_e = log(.1);
 
 # Population Mean Parameters (M_...)
 M_V_dist; M_lnV_dist;

@@ -1,24 +1,24 @@
 # ------------------------
-# One-compartment model with first-order absorption rate and 
+# Two-compartment model with first-order absorption rate and 
 # linear elimination (metabolism or other route of elimination) 
 #
-# version 1
+# version 1 (This version is use to test forward simple pk)
 #
 # Units: 
 # - time in hours
 # - volumes in liters
-# - masses of substances in micromoles
-# - concentrations of substances in microM
+#
+# Nan-Hung Hsieh - May 2017
 # ------------------------
 
-States  = {Q_rest,
-           Q_elim,
+States  = {A_rest,
+           A_elim,
 }; 
 
 Outputs = {Oral_input_uM,
            C_rest,          # Concentration in central compartment (uM)
-           C_elim,          # Total metabolize concentration (uM)
-           Q_total};        # Total quantity for mass balance (mg)
+           C_elim,
+           A_total};        # Total quantity for mass balance (mg)
 
 Inputs  = {Oral_input};     # Drug input in micromoles
 
@@ -36,29 +36,29 @@ IngDose    = 1.0; # ingested input (mg)
 Fgutabs    = 1.0; #
 Period     = 0.0; # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0; # Absorption lagtime (h)
-Ka         = 0.0; # Intestinal absortion rate (/h)
-Oral_input = PerExp (Absdose, Period, Tlag, Ka);
+k_a         = 0.0; # Intestinal absortion rate (/h)
+Oral_input = PerExp (Absdose, Period, Tlag, k_a);
 
 # Volumes (L)
 V_dist  = 1; 
 
 # Transfer rate constants between compartments (/h)
-k_elim = 1;
+k_e = 1;
 
 Initialize{
     Absdose = IngDose * Fgutabs;
 }
 
 Dynamics {
-  dt (Q_rest)  = Oral_input - k_elim * Q_rest;
-  dt (Q_elim)  = k_elim * Q_rest; 
+  dt (A_rest)  = Oral_input - k_e * A_rest;
+  dt (A_elim)  = k_e * A_rest; 
 }
 
 CalcOutputs {
   Oral_input_uM = Oral_input * 1000 / MW;
-  C_rest  = Q_rest  / V_dist / MW * 1000;
-  C_elim  = Q_elim * 1000 / MW;
-  Q_total = Q_rest + Q_elim;
+  C_rest  = A_rest  / V_dist / MW * 1000;
+  C_elim  = A_elim * 1000 / MW;
+  A_total = A_rest + A_elim;
 }
 
 End.
