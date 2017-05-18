@@ -11,8 +11,10 @@ Level { # Population Level
 # Remove the ... and fill these in
 # ======================================
 
-Distrib(M_lnV_dist, TruncNormal, -0.4831644, 0.2741961, -2.110483, -0.08538681);
-Distrib(M_lnk_e, TruncNormal, -1.662183, 0.4658197, -3.031792, 0.1113578);
+#Distrib(M_lnV_dist,TruncNormal, -0.4831644, 0.2741961, -2.110483, -0.08538681);
+#Distrib(M_lnk_e, TruncNormal, -1.662183, 0.4658197, -3.031792, 0.1113578);
+Distrib(M_lnV_dist, Uniform, -2.110483, -0.08538681);
+Distrib(M_lnk_e, Uniform, -6., 0.);
 
 
 Distrib(V_lnV_dist, InvGamma, 2.25, 0.3125);
@@ -25,13 +27,14 @@ Likelihood(Data(lnC_rest), Normal_v, Prediction(lnC_rest), Ve_lnC_rest);
 
 Level { # Group Level
 Distrib(lnV_dist, TruncNormal_v, M_lnV_dist, V_lnV_dist,  -2.110483, -0.08538681);
-Distrib(lnk_e, TruncNormal_v, M_lnk_e, V_lnk_e, -3.031792, 0.1113578);
+Distrib(lnk_e, TruncNormal_v, M_lnk_e, V_lnk_e, -6., 0.);
+
 
 Level { # Group A
 #--------------
 
 Distrib(lnV_dist, TruncNormal_v, lnV_dist, V_lnV_dist, -2.110483, -0.08538681);
-Distrib(lnk_e, TruncNormal_v, lnk_e, V_lnk_e, -3.031792, 0.1113578);
+Distrib(lnk_e, TruncNormal_v, lnk_e, V_lnk_e, -6., 0.);
 
 Simulation { # Sim. 1
 
