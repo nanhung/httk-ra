@@ -104,6 +104,7 @@ out_dr <- parallel::clusterMap(cl=cluster,
 parallel::stopCluster(cluster)
 
 # Read created data #############################
+# 0501
 vi_Total<-readRDS("data/httkpop_vi_Total.Rdata")
 View(vi_Total)
 # Use this method to create prior knowledge
@@ -112,6 +113,35 @@ prior.1<-get_httk_params(vi_Total, chemcas="58-55-9", "1compartment", poormetab=
                        sigma.factor = 0.3, Clint.vary = TRUE, lod = 0.01)
 prior.3<-get_httk_params(vi_Total, chemcas="58-55-9", "3compartmentss", poormetab=F, fup.censor=T,
                 sigma.factor = 0.3, Clint.vary = TRUE, lod = 0.01)
+
+# Create setpoint file
+pri.1.setpoint<-cbind(prior.1[,6],prior.1[,7])
+write.table(pri.1.setpoint, file = "theoph.1cpt.setpoint.dat", row.names = F, sep="\t")
+
+# estimate setpoint result
+system("./mcsim.cpt.v1 theoph.1cpt.setpoint.in")
+
+df<-read.csv("theoph.1cpt.setpoint.csv", header = T, sep="")
+time <- c(.25, .5, .75, 1, 1.5, 2, 3, 4, 6, 8, 12, 16, 20, 24)
+Theoph.MW <- 180.17 #g/mol
+
+Theoph$conc.mol<-Theoph$conc * 1000 / Theoph.MW
+
+for(i in 1:dim(df)[1]){
+  if(i == 1){
+    plot(time, df[i, 4:17], xlab = "", ylab = "",
+         main="C_rest", las=1, col="grey", pch=20, cex.lab=1.2, type="b", 
+         cex.main = 1.2, log = 'y')
+  } else {
+    plot(time, df[i, 4:17], xlab = "", ylab = "", xaxt='n', yaxt='n', 
+         type='b', col='grey', log = 'y')
+  }
+  par(new=T)
+}
+points(Theoph[1:11,4],Theoph[1:11,6], col='red', pch=20, cex=1.4)
+
+# Plot result
+
 # test 1comp
 out <- solve_1comp(chem.cas="58-55-9", day = 4, doses.per.day = 1, output.units='uM', plots=T)
 plot.data <- as.data.frame(out)
