@@ -12,4 +12,6 @@ for (i in 2:4) {
 
 source("theoph.post.R")
 
-
+df<-read.csv("theoph_groups_4567.1.csv", header = T, sep="")
+plot(df$Prediction~df$Data)
+abline(0,1)
