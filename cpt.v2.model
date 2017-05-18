@@ -2,24 +2,24 @@
 # Two-compartment model with first-order absorption rate and 
 # linear elimination (metabolism or other route of elimination) 
 #
-# version 3
+# version 2 (This version is use to test MCMC)
 #
 # Units: 
 # - time in hours
 # - volumes in liters
-# - masses of substances in micromoles
-# - concentrations of substances in microM
+#
+# Nan-Hung Hsieh - May 2017
 # ------------------------
 
 
-States  = {Q_gutlumen,      # Quantity in gutlumen compartment (micromoles)
-           Q_rest,          # ~           rest compartment
-           Q_elim};         # ~           eliminated
+States  = {A_rest,          # ~           rest compartment
+           A_elim};         # ~           eliminated
 
-Outputs = {C_rest,        # Quantity in rest compartment
-           Q_total,       # Total quantity for mass balance
+Outputs = {Oral_input_uM,
+           C_rest,         # Quantity in rest compartment
+           A_total,        # Total quantity for mass balance
            lnC_rest,
-           lnQ_total};        
+           lnA_total};        
 
 Inputs  = {Oral_input};     # Drug input in micromoles
 
@@ -32,83 +32,56 @@ Inputs  = {Oral_input};     # Drug input in micromoles
 # Chemical Parameters
 MW;   # Molecualar Weight
 
-# Anatomical Parameters
-BW = 70.; lnBW = log(70.);  # Body weight (kg). 
-
 
 # Oral input modeling
-mgkg_flag = 0.; # If the flag is 1, we have a mg/kg dose
-OralDose_mgkg = 0.; lnOralDose_mgkg = log(2E-9);     # Oral Dose given (mg/kg)
-OralDose_mg = 0.;  lnOralDose_mg = log(2E-9);        # Oral Dose given (mg)
-ODose_mg;
-ODose_umol;
 
+Absdose;
+IngDose    = 1.0; # ingested input (mg)
+Fgutabs    = 1.0; #
+Period     = 0.0; # period of the exposure/no exposure cycle (h)
+Tlag       = 0.0; # Absorption lagtime (h)
 
-#Period     = 0.0; # period of the exposure/no exposure cycle (h)
-#Ka         = 1.0; lnKa = log(1.); # Gut absortion rate constant (1/h)
-#Tlag       = 0.0; # Absorption lagtime (h)
-#Oral_input = PerExp (ODose_umol, Period, Tlag, Ka);
-
-Period   = 0.0; # period of the exposure/no exposure cycle
-Exposure = 0.0; # exposure dutation within a period
-Oral_input = PerDose(ODose_umol, Period, 0.0, Exposure);
-
-# Elimination rate constant (1/h)
-k_elim = 0.1; lnk_elim = log(.1);
-k_gutabs = 0.1; lnk_gutabs = log(.1);
+Oral_input = PerExp (Absdose, Period, Tlag, k_a);
 
 # Volumes (L)
 V_dist = 1; lnV_dist = log(1.);
 
+# Rate constant (/h)
+k_a = 1.0; lnk_a = log(1.0); # Intestinal absortion rate (/h)
+k_e = 0.1; lnk_e = log(.1);
+
 # Population Mean Parameters (M_...)
-
-
-M_BW; M_lnBW;
 M_V_dist; M_lnV_dist;
-#M_Ka; M_ln_Ka;
+M_k_e; M_lnk_e;
 
 
 #Population Variance Parameters (V_...)
-
-
-V_BW; V_lnBW;
 V_V_dist; V_lnV_dist;
-#V_Ka; V_ln_Ka;
+V_k_e; V_lnk_e;
 
 
 #  Data Error (Ve_...)
 # Needed if you are using an error distribution, rather than error at specific time points.
-
 Ve_C_rest; Ve_lnC_rest;
 
 
-Initialize {
-
-BW = exp(lnBW);
-
-# Inital Dosing
-#--------------
-OralDose_mgkg = exp(lnOralDose_mgkg);  
-OralDose_mg = exp(lnOralDose_mg);
-
-ODose_mg = (mgkg_flag>0.5 ? OralDose_mgkg*BW: OralDose_mg); # ingested input (mg)
-ODose_umol  = ODose_mg*(1000./MW); # ingested input (micromoles)
-
+Initialize{
+    Absdose = IngDose * Fgutabs;
 }
 
+
 Dynamics {
-    dt(Q_elim)     = k_elim * Q_rest; 
-    dt(Q_gutlumen) = Oral_input - k_gutabs * Q_gutlumen;
-    dt(Q_rest)     = dt(Q_gutlumen) - dt(Q_elim);
-     
-    
-    C_rest = Q_rest  / V_dist;
-    Q_total    = Q_gutlumen + Q_rest + Q_elim;
+  dt (A_rest)  = Oral_input - k_e * A_rest;
+  dt (A_elim)  = k_e * A_rest; 
 }
 
 CalcOutputs {
+  Oral_input_uM = Oral_input * 1000 / MW;
+  C_rest  = A_rest  / V_dist / MW * 1000;
+  C_elim  = A_elim * 1000 / MW;
+  A_total = A_rest + A_elim;
+
   lnC_rest  = (C_rest > 0 ? log(C_rest):-20.); 
-  lnQ_total = (Q_total > 0 ? log(Q_total):-20.);
 }
 
 End.
