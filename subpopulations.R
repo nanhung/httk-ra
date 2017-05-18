@@ -127,20 +127,19 @@ Theoph.MW <- 180.17 #g/mol
 
 Theoph$conc.mol<-Theoph$conc * 1000 / Theoph.MW
 
+# Plot result
 for(i in 1:dim(df)[1]){
   if(i == 1){
     plot(time, df[i, 4:17], xlab = "", ylab = "",
          main="C_rest", las=1, col="grey", pch=20, cex.lab=1.2, type="b", 
-         cex.main = 1.2, log = 'y')
+         cex.main = 1.2, log = 'y', ylim = c(1,100))
   } else {
     plot(time, df[i, 4:17], xlab = "", ylab = "", xaxt='n', yaxt='n', 
-         type='b', col='grey', log = 'y')
+         type='b', col='grey', log = 'y', ylim = c(1,100))
   }
   par(new=T)
 }
-points(Theoph[1:11,4],Theoph[1:11,6], col='red', pch=20, cex=1.4)
-
-# Plot result
+points(Theoph[1:11,4],Theoph[1:11,6], col='red', pch=20, cex=1.4, type="b")
 
 # test 1comp
 out <- solve_1comp(chem.cas="58-55-9", day = 4, doses.per.day = 1, output.units='uM', plots=T)
