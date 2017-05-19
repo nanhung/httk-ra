@@ -12,6 +12,15 @@ for (i in 2:4) {
 
 source("theoph.post.R")
 
+# trace M_Vd
+plot(theoph.c1.1[,1], theoph.c1.1[,2], type = "l")
+lines(theoph.c1.2[,1], theoph.c1.2[,2], type = "l", col="red")
+
+# trace M_Ke
+plot(theoph.c1.1[,1], theoph.c1.1[,3], type = "l")
+lines(theoph.c1.2[,1], theoph.c1.2[,3], type = "l", col="red")
+
+#
 df<-read.csv("theoph_groups_4567.1.csv", header = T, sep="")
 plot(df$Prediction~df$Data)
 abline(0,1)
