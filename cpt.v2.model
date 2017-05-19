@@ -53,12 +53,13 @@ Oral_input = PerExp (Absdose, Period, Tlag, k_a);
 # Population Mean Parameters (M_...)
 M_V_dist; M_lnV_dist;
 M_k_e; M_lnk_e;
+M_k_a; M_lnk_a;
 
 
 #Population Variance Parameters (V_...)
 V_V_dist; V_lnV_dist;
 V_k_e; V_lnk_e;
-
+V_k_a; V_lnk_a;
 
 #  Data Error (Ve_...)
 # Needed if you are using an error distribution, rather than error at specific time points.
