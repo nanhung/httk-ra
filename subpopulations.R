@@ -115,11 +115,20 @@ prior.3<-get_httk_params(vi_Total, chemcas="58-55-9", "3compartmentss", poormeta
                 sigma.factor = 0.3, Clint.vary = TRUE, lod = 0.01)
 
 # Create setpoint file
+V_dist_min<-min(prior.1[,6])
+V_dist_max<-max(prior.1[,6])
+ke_min<-min(prior.1[,7])
+ke_max<-max(prior.1[,7])
+
+new.Vd<-runif(1000, V_dist_min,V_dist_max)
+new.ke<-runif(1000, ke_min, ke_max)
+
 pri.1.setpoint<-cbind(prior.1[,6],prior.1[,7])
+#pri.1.setpoint<-cbind(new.Vd, new.ke)
 write.table(pri.1.setpoint, file = "theoph.1cpt.setpoint.dat", row.names = F, sep="\t")
 
 # estimate setpoint result
-system("./mcsim.cpt.v1 theoph.1cpt.setpoint.in")
+system("./mcsim.cpt.v2 theoph.1cpt.setpoint.in")
 
 df<-read.csv("theoph.1cpt.setpoint.csv", header = T, sep="")
 time <- c(.25, .5, .75, 1, 1.5, 2, 3, 4, 6, 8, 12, 16, 20, 24)
@@ -132,10 +141,10 @@ for(i in 1:dim(df)[1]){
   if(i == 1){
     plot(time, df[i, 4:17], xlab = "", ylab = "",
          main="C_rest", las=1, col="grey", pch=20, cex.lab=1.2, type="b", 
-         cex.main = 1.2, log = 'y', ylim = c(1,100))
+         cex.main = 1.2, log = 'y', ylim = c(0.1,1000))
   } else {
     plot(time, df[i, 4:17], xlab = "", ylab = "", xaxt='n', yaxt='n', 
-         type='b', col='grey', log = 'y', ylim = c(1,100))
+         type='b', col='grey', log = 'y', ylim = c(0.1,1000))
   }
   par(new=T)
 }
