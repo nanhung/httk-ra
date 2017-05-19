@@ -1,5 +1,5 @@
-Integrate(Lsodes, 1.0e-5, 3.09e-7, 1);
-MCMC("theoph_groups_2345.csv", "", "", 20000, 0, 20, 20000, 2345); # Full calibration
+Integrate(Lsodes, 1.0e-5, 1e-8, 1);
+MCMC("theoph_groups_1234.csv", "", "", 20000, 0, 20, 20000, 1234); # Full calibration
 
 
 Level { # Population Level
@@ -32,11 +32,6 @@ Distrib(lnk_e, TruncNormal_v, M_lnk_e, V_lnk_e, -2.892829, -0.03061297);
 
 Level { # Group A
 #--------------
-
-Distrib(lnV_dist, TruncNormal_v, lnV_dist, V_lnV_dist, -2.829878, -0.03702585);
-Distrib(lnk_e, TruncNormal_v, lnk_e, V_lnk_e, -2.892829, -0.03061297);
-
-
 Simulation { # Sim. 1
 
 MW = 180.17; # Theophylline
@@ -55,10 +50,6 @@ Data(lnC_rest,  2.757692 3.596402 4.065263 3.981881 3.863322 3.837346 3.724783 3
 
 Level { # Group B
 #--------------
-
-Distrib(lnV_dist, TruncNormal_v, lnV_dist, V_lnV_dist, -2.110483, -0.08538681);
-Distrib(lnk_e, TruncNormal_v, lnk_e, V_lnk_e, -6, 0.);
-
 
 Simulation { # Sim. 2
 
