@@ -1,0 +1,83 @@
+# ------------------------
+# Two-compartment model with first-order absorption rate and 
+# linear elimination (metabolism or other route of elimination) 
+#
+# version 3 (This version is use to test MCMC with analytical solution)
+#
+# Units: 
+# - time in hours
+# - volumes in liters
+#
+# Nan-Hung Hsieh - May 2017
+# ------------------------
+
+
+States  = {A_rest};         # ~           eliminated
+
+Outputs = {Oral_input_uM,
+           C_rest,         # Quantity in rest compartment
+           lnC_rest};        
+
+Inputs  = {Oral_input};     # Drug input in micromoles
+
+
+# ------------------------
+# Parameters
+# ------------------------
+
+
+# Chemical Parameters
+MW;   # Molecualar Weight
+
+
+# Volumes (L)
+V_dist = 1; lnV_dist = log(1.);
+
+# Rate constant (/h)
+k_a = 1.0; lnk_a = log(1.0); # Intestinal absortion rate (/h)
+k_e = 0.1; lnk_e = log(.1);
+
+#
+CL = 1.0; lnCL = log(1.0);
+
+# Oral input modeling
+
+Absdose;
+IngDose    = 1.0; # ingested input (mg)
+Fgutabs    = 1.0; #
+Period     = 0.0; # period of the exposure/no exposure cycle (h)
+Tlag       = 0.0; # Absorption lagtime (h)
+
+Oral_input = PerExp (Absdose, Period, Tlag, k_a);
+
+# Population Mean Parameters (M_...)
+M_V_dist; M_lnV_dist;
+M_k_e; M_lnk_e;
+M_k_a; M_lnk_a;
+M_CL; M_lnCL;
+
+
+#Population Variance Parameters (V_...)
+V_V_dist; V_lnV_dist;
+V_k_e; V_lnk_e;
+V_k_a; V_lnk_a;
+V_CL; V_lnCL;
+
+#  Data Error (Ve_...)
+# Needed if you are using an error distribution, rather than error at specific time points.
+Ve_C_rest; Ve_lnC_rest;
+
+Initialize{
+    Absdose = IngDose * Fgutabs;
+}
+
+CalcOutputs {
+  Oral_input_uM = Oral_input * 1000 / MW;
+  C_rest  = A_rest  / V_dist / MW * 1000;
+  C_elim  = A_elim * 1000 / MW;
+  A_total = A_rest + A_elim;
+
+  lnC_rest  = (C_rest > 0 ? log(C_rest):-20.); 
+}
+
+End.
