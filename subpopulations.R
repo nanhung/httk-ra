@@ -124,7 +124,7 @@ new.Vd<-runif(1000, V_dist_min,V_dist_max)
 new.ke<-runif(1000, ke_min, ke_max)
 
 pri.1.setpoint<-cbind(prior.1[,6],prior.1[,7])
-#pri.1.setpoint<-cbind(new.Vd, new.ke)
+pri.1.setpoint<-cbind(new.Vd, new.ke)
 write.table(pri.1.setpoint, file = "theoph.1cpt.setpoint.dat", row.names = F, sep="\t")
 
 # estimate setpoint result
