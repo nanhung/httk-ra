@@ -24,8 +24,8 @@ for (this.cas in Chem.df$CAS[1:no.Chem])
 View(Chem.df)
 
 # Generate Toxicity Table w/ AC50
-tc.dt.sub <- tc.dt[Activity.Call=="Active", 
-                   .(Chemical.Name, CASRN, Assay.Endpoint, Activity.Call, AC50)]
+tc.dt.sub <- tc.dt[`Activity Call`=="Active", 
+                   .(`Chemical Name`, CASRN, `Assay Endpoint`, `Activity Call`, `AC 50`)]
 
 Chem.tc.dt <- tc.dt.sub[tc.dt.sub$CASRN %in% Chem.df[1,3],]
 for(i in 2:no.Chem){
@@ -43,8 +43,8 @@ Chem.df[,"Max.AC50"]<-""
 for(i in 1:no.Chem){
   tmp<-subset(Chem.tc.dt, CASRN==Chem.df$CAS[i])
   Chem.df[i,"No.ToxData"]<-length(which(M==Chem.df$CAS[i]))
-  Chem.df[i,"Min.AC50"]<-min(tmp$AC50)
-  Chem.df[i,"Max.AC50"]<-max(tmp$AC50)
+  Chem.df[i,"Min.AC50"]<-min(tmp$`AC 50`)
+  Chem.df[i,"Max.AC50"]<-max(tmp$`AC 50`)
 }
 
 tmp<-cbind(as.numeric(Chem.df[,13]),as.numeric(Chem.df[,14]))
@@ -53,12 +53,18 @@ Chem.df[, 13:14] <- tmp
 
 View(Chem.df)
 
+# Find Tox21 data
+Chem.t21.dt <- Chem.tc.dt[grep("Tox21", Chem.tc.dt$`Assay Endpoint`)]
+View(Chem.t21.dt)
 
 
 
 
+CAS<-Chem.df[5,3]
+s<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
+#grep('>Total<',s)
+#s[grep('>Total<',s)+1]
+#s[grep('>Total<',s)+2]
 
-
-#Find Tox21 data
-#Chem.t21.dt <- Chem.tc.dt[grep("Tox21", Chem.tc.dt$Assay.Endpoint)]
-#View(Chem.t21.dt)
+substr(s[grep('>Total<',s)+1], 44, 51)
+substr(s[grep('>Total<',s)+2], 44, 51)
