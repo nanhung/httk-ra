@@ -150,4 +150,36 @@ for(i in tmp.df[,1]){ # revise the correct value
   Chem.df[i,"Expo.Total_95perc"]<-substr(tmp[grep('>Total<',tmp)+2][2], 44, 51)
 }
 
-write.csv(Chem.df, file = "ChemTox.csv")
+
+# Estimate CSS
+Chem.df<-read.csv("ChemTox.csv", header = T)
+
+Chem.df[,"httk"]<-""
+Chem.df[,"Css.med_medRTK.plasma.uM"]<-"" # median for total population
+Chem.df[,"Css.med_95RTK.plasma.uM"]<-"" # median for total population
+Chem.df[,"Css.95perc_medRTK.plasma.uM"]<-"" # 95% for total population
+Chem.df[,"Css.95perc_95RTK.plasma.uM"]<-"" # 95% for total population
+
+# Double check the excel table and httk (*some information are different*) 
+for (this.cas in Chem.df$CAS[1:no.Chem])
+{
+  this.index <- Chem.df$CAS==this.cas
+  if (is.httk(this.cas)) Chem.df[this.index,"httk"] <- 1
+}
+
+tmp.df <- Chem.df[grep("1", Chem.df$httk), ] # detect the httk
+tmp.df[,1]
+
+for (i in tmp.df[,1]){
+  cas<-Chem.df$CAS_trimmed[i]
+  md<-Chem.df$Expo.Total_median[i]
+  u95<-Chem.df$Expo.Total_95perc[i]
+  Chem.df[i,"Css.med_medRTK.plasma.uM"] <- calc_mc_css(chem.cas=cas,output.units='uM', daily.dose=md, model='3compartmentss', which.quantile=0.5, method="v")
+  Chem.df[i,"Css.med_95RTK.plasma.uM"] <- calc_mc_css(chem.cas=cas,output.units='uM', daily.dose=md, model='3compartmentss', which.quantile=0.95, method="v")
+  Chem.df[i,"Css.95perc_medRTK.plasma.uM"] <- calc_mc_css(chem.cas=cas,output.units='uM', daily.dose=u95, model='3compartmentss', which.quantile=0.5, method="v")
+  Chem.df[i,"Css.95perc_95RTK.plasma.uM"] <- calc_mc_css(chem.cas=cas,output.units='uM', daily.dose=u95, model='3compartmentss', which.quantile=0.95, method="v")
+  }
+
+#write.csv(Chem.df, file = "ChemTox.csv")
+
+
