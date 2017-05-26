@@ -174,12 +174,21 @@ for (i in tmp.df[,1]){
   cas<-Chem.df$CAS_trimmed[i]
   md<-Chem.df$Expo.Total_median[i]
   u95<-Chem.df$Expo.Total_95perc[i]
-  Chem.df[i,"Css.med_medRTK.plasma.uM"] <- calc_mc_css(chem.cas=cas,output.units='uM', daily.dose=md, model='3compartmentss', which.quantile=0.5, method="v")
-  Chem.df[i,"Css.med_95RTK.plasma.uM"] <- calc_mc_css(chem.cas=cas,output.units='uM', daily.dose=md, model='3compartmentss', which.quantile=0.95, method="v")
-  Chem.df[i,"Css.95perc_medRTK.plasma.uM"] <- calc_mc_css(chem.cas=cas,output.units='uM', daily.dose=u95, model='3compartmentss', which.quantile=0.5, method="v")
-  Chem.df[i,"Css.95perc_95RTK.plasma.uM"] <- calc_mc_css(chem.cas=cas,output.units='uM', daily.dose=u95, model='3compartmentss', which.quantile=0.95, method="v")
+  a<-calc_mc_css(chem.cas=cas, which.quantile=.5, output.units='uM', model='3compartmentss', httkpop=FALSE)
+  b<-calc_mc_css(chem.cas=cas, which.quantile=.95, output.units='uM', model='3compartmentss', httkpop=FALSE)
+  ratio<-b/a
+  Chem.df[i,"Css.med_medRTK.plasma.uM"] <- calc_analytic_css(chem.cas=cas, output.units='uM', model='3compartmentss', daily.dose=md)
+  Chem.df[i,"Css.med_95RTK.plasma.uM"] <- Chem.df[i,"Css.med_medRTK.plasma.uM"] * ratio
+  Chem.df[i,"Css.95perc_medRTK.plasma.uM"] <- calc_analytic_css(chem.cas=cas, output.units='uM', model='3compartmentss', daily.dose=u95)
+  Chem.df[i,"Css.95perc_95RTK.plasma.uM"] <- Chem.df[i,"Css.95perc_medRTK.plasma.uM"] * ratio
   }
 
 #write.csv(Chem.df, file = "ChemTox.csv")
 
+cas<-Chem.df$CAS_trimmed[1]
+md<-Chem.df$Expo.Total_median[1]
+u95<-Chem.df$Expo.Total_95perc[1]
 
+a<-calc_mc_css(chem.cas=cas, which.quantile=.5, output.units='uM', model='3compartmentss', httkpop=FALSE)
+b<-calc_mc_css(chem.cas=cas, which.quantile=.95, output.units='uM', model='3compartmentss', httkpop=FALSE)
+b/a
