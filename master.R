@@ -152,7 +152,7 @@ for(i in tmp.df[,1]){ # revise the correct value
 
 
 # Estimate CSS
-Chem.df<-read.csv("ChemTox.csv", header = T)
+Chem.df<-read.csv("ChemTox_v2.csv", header = T)
 
 Chem.df[,"httk"]<-""
 Chem.df[,"Css.med_medRTK.plasma.uM"]<-"" # median for total population
@@ -192,3 +192,44 @@ u95<-Chem.df$Expo.Total_95perc[1]
 a<-calc_mc_css(chem.cas=cas, which.quantile=.5, output.units='uM', model='3compartmentss', httkpop=FALSE)
 b<-calc_mc_css(chem.cas=cas, which.quantile=.95, output.units='uM', model='3compartmentss', httkpop=FALSE)
 b/a
+
+
+#
+Chem.df<-read.csv("ChemTox_v2.csv", header = T)
+no.Chem <- length(Chem.df[,1]) # The number of chemicals
+
+Chem.df<-Chem.df[c(4:6)]
+Chem.df[,"Ave.exp"]<-""
+Chem.df[,"Ave.prd"]<-""
+Chem.df[,"Med.exp"]<-""
+Chem.df[,"Med.prd"]<-""
+Chem.df[,"Rng.exp"]<-""
+Chem.df[,"Rng.prd"]<-""
+Chem.df[,"Deg"]<-""
+
+for(i in 1:no.Chem){
+  CAS<-Chem.df[i,3]
+  tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
+  Chem.df[i,"Ave.exp"]<-substr(tmp[grep('>Boiling Point<',tmp)+3][1], 31, 37)
+  Chem.df[i,"Ave.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+8][1], 31, 37)
+  Chem.df[i,"Med.exp"]<-substr(tmp[grep('>Boiling Point<',tmp)+13][1], 31, 37)
+  Chem.df[i,"Med.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+18][1], 31, 37)
+  Chem.df[i,"Rng.exp"]<-substr(tmp[grep('>Boiling Point<',tmp)+23][1], 35, 44)
+  Chem.df[i,"Rng.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+28][1], 35, 44)
+  Chem.df[i,"Deg"]<-substr(tmp[grep('>Boiling Point<',tmp)+33][1], 36, 37)
+}
+
+tmp.df <- Chem.df[grep("class=", Chem.df$Ave.exp), ] # detect the wrong data
+
+for(i in tmp.df[,1]){
+  CAS<-Chem.df[i,3]
+  tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
+  Chem.df[i,"Ave.exp"]<-""
+  Chem.df[i,"Ave.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+3][1], 56, 58)
+  Chem.df[i,"Med.exp"]<-""
+  Chem.df[i,"Med.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+9][1], 56, 58)
+  Chem.df[i,"Rng.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+15][1], 60, 69)
+  Chem.df[i,"Deg"]<-substr(tmp[grep('>Boiling Point<',tmp)+20][1], 61, 61)
+}
+
+write.csv(Chem.df, file = "ChemBoil.csv")
