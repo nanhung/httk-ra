@@ -20,7 +20,7 @@ lines(theoph.c1.2[,1], theoph.c1.2[,2], type = "l", col="red")
 plot(theoph.c1.1[,1], theoph.c1.1[,3], type = "l")
 lines(theoph.c1.2[,1], theoph.c1.2[,3], type = "l", col="red")
 
-#
+# Validation
 df<-read.csv("theoph_groups_4567.1.csv", header = T, sep="")
 plot(df$Prediction~df$Data)
 abline(0,1)

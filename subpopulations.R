@@ -120,35 +120,41 @@ V_dist_max<-max(prior.1[,6])
 ke_min<-min(prior.1[,7])
 ke_max<-max(prior.1[,7])
 
+iter<-c(1:1000)
 new.Vd<-runif(1000, V_dist_min,V_dist_max)
 new.ke<-runif(1000, ke_min, ke_max)
 
-pri.1.setpoint<-cbind(prior.1[,6],prior.1[,7])
-pri.1.setpoint<-cbind(new.Vd, new.ke)
+# pri.1.setpoint<-cbind(iter<-c(1:1000), prior.1[,6],prior.1[,7], 1, 0.98)
+pri.1.setpoint<-cbind(iter, new.Vd, new.ke, 1, 0.98)
 write.table(pri.1.setpoint, file = "theoph.1cpt.setpoint.dat", row.names = F, sep="\t")
 
 # estimate setpoint result
-system("./mcsim.cpt.v2 theoph.1cpt.setpoint.in")
+system("./mcsim.cpt.v1 theoph.1cpt.setpoint.in")
 
-df<-read.csv("theoph.1cpt.setpoint.csv", header = T, sep="")
+sim<-read.csv("theoph.1cpt.setpoint.csv", header = T, sep="")
 time <- c(.25, .5, .75, 1, 1.5, 2, 3, 4, 6, 8, 12, 16, 20, 24)
 Theoph.MW <- 180.17 #g/mol
 
 Theoph$conc.mol<-Theoph$conc * 1000 / Theoph.MW
 
-# Plot result
-for(i in 1:dim(df)[1]){
+sim.str<-which(colnames(sim)=="C_rest_1.1")
+sim.end<-which(colnames(sim)=="C_rest_1.14")
+j<-sim.str:sim.end
+
+# Plot set point test result
+for(i in 1:dim(sim)[1]){
   if(i == 1){
-    plot(time, df[i, 4:17], xlab = "", ylab = "",
+    plot(time, sim[i, j], xlab = "", ylab = "",
          main="C_rest", las=1, col="grey", pch=20, cex.lab=1.2, type="b", 
-         cex.main = 1.2, log = 'y', ylim = c(0.1,1000))
+         cex.main = 1.2, log = 'xy', ylim = c(0.1,1000))
   } else {
-    plot(time, df[i, 4:17], xlab = "", ylab = "", xaxt='n', yaxt='n', 
-         type='b', col='grey', log = 'y', ylim = c(0.1,1000))
+    plot(time, sim[i, j], xlab = "", ylab = "", xaxt='n', yaxt='n', 
+         type='b', col='grey', log = 'xy', ylim = c(0.1,1000))
   }
   par(new=T)
 }
-points(Theoph[1:11,4],Theoph[1:11,6], col='red', pch=20, cex=1.4, type="b")
+points(Theoph[2:11,4],Theoph[2:11,6], col=1, pch=20, cex=1.4, type="b")
+points(Theoph[57:66,4],Theoph[57:66,6], col=6, pch=20, cex=1.4, type="b")
 
 # test 1comp from httk
 out <- solve_1comp(chem.cas="58-55-9", day = 4, doses.per.day = 1, output.units='uM', plots=T)

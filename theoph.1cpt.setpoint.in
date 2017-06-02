@@ -1,10 +1,10 @@
 # ----------------------------------------------------------------
-# Set points simulation input file for Drug_X
+# Set points simulation input file for theoph
 # Simulation file for cpt.v1.model
 # A set of parameter values, recorded in theoph.1cpt.setpoint.dat
 # ----------------------------------------------------------------
 
-SetPoints("theoph.1cpt.setpoint.csv", "theoph.1cpt.setpoint.dat", 0, V_dist, k_e);
+SetPoints("theoph.1cpt.setpoint.csv", "theoph.1cpt.setpoint.dat", 0, V_dist, k_e, k_a, Fgutabs);
 
 # -------------------
 # Simulation scenario
@@ -12,11 +12,11 @@ SetPoints("theoph.1cpt.setpoint.csv", "theoph.1cpt.setpoint.dat", 0, V_dist, k_e
 
 MW = 180.17; # Theophylline
 
-Fgutabs    = 0.98;
+#Fgutabs    = 0.98;
 IngDose    = 4.02;   # ingested dose (mg)
 Period     = 24;    # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0;   # Absorption lagtime (h)
-k_a       = 1.0;   # Intestinal absortion rate (/h)
+#k_a       = 1.0;   # Intestinal absortion rate (/h)
 
 Simulation{	#1:
 Print(C_rest, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 6, 8, 12, 16, 20, 24);
