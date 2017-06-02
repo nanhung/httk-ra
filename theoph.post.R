@@ -8,5 +8,5 @@ if(!require(data.table)){
 
 
 # read theoph 1cpt mcmc test result
-theoph.c1.1<-as.data.frame(fread('theoph_groups_1234.csv'))
-theoph.c1.2<-as.data.frame(fread('theoph_groups_2345.csv'))
+theoph.c1.1<-as.data.frame(fread('1cpt.MCMC1.out'))
+theoph.c1.2<-as.data.frame(fread('1cpt.MCMC2.out'))
