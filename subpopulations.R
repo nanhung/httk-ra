@@ -150,7 +150,7 @@ for(i in 1:dim(df)[1]){
 }
 points(Theoph[1:11,4],Theoph[1:11,6], col='red', pch=20, cex=1.4, type="b")
 
-# test 1comp
+# test 1comp from httk
 out <- solve_1comp(chem.cas="58-55-9", day = 4, doses.per.day = 1, output.units='uM', plots=T)
 plot.data <- as.data.frame(out)
 css <- calc_analytic_css(chem.cas="58-55-9",output.units='uM',
