@@ -2,14 +2,14 @@
 if(!require(httk)) {
   install.packages("httk"); require(httk)}
 
-Chem.df<-read.csv("ChemData2.csv")
+Chem.df<-read.csv("ChemTox2.csv")
+no.Chem <- length(Chem.df[,1]) # The number of chemicals
 
 Chem.df[,"ToxCast"]<-""
 Chem.df[,"Tox21"]<-""
 Chem.df[,"ExpoCast"]<-""
 Chem.df[,"NHANES"]<-""
 
-no.Chem <- length(Chem.df[,1]) # The number of chemicals
 
 # Double check the excel table and httk (*some information are different*) 
 for (this.cas in Chem.df$CAS[1:no.Chem])
@@ -44,15 +44,6 @@ for(i in 573:no.Chem){
 }
 
 
-tc.dt.sub <- tc.dt[`Activity Call`=="Active", 
-                   .(`Chemical Name`, CASRN, `Assay Endpoint`, `Activity Call`, `AC 50`)]
-
-Chem.tc.dt <- tc.dt.sub[tc.dt.sub$CASRN %in% Chem.df[595,2],]
-for(i in 595:no.Chem){
-  Chem.tc.dt <- rbind(Chem.tc.dt, tc.dt.sub[tc.dt.sub$CASRN %in% Chem.df[i,2],])
-}
-
-
 tmp.df <- which(is.na(Chem.df), arr.ind=TRUE) # detect NA
 tmp.df
 
@@ -70,7 +61,29 @@ for(i in tmp.df[,1]){
   Chem.df[i,"MW"]<-gsub('^.*<li>([^<]*)</li>.*$','\\1', match)
 }
 
-#chem.nlm.nih.gov
+
+#Chem.df[,"logP"]<-"" # median for total population
+#Chem.df[,"EXP"]<-"" # 95% for total population
+
+
+for(i in 604:no.Chem){
+  CAS<-Chem.df[i,3]
+  tmp<-readLines(paste("https://chem.nlm.nih.gov/chemidplus/rn/", CAS, sep = ""))
+  logP <- tmp[grep('log P',tmp)+2]
+  EXP <- tmp[grep('log P',tmp)+8]
+  if (identical(logP, character(0)) == TRUE) {
+    Chem.df[i,"logP"] <- NA
+  } else {
+    Chem.df[i,"logP"] <- sub('^.*<TD [^>]*>([^<]*)</TD>.*$', "\\1", logP)
+  }
+  if (identical(EXP, character(0)) == TRUE) {
+    Chem.df[i,"EXP"] <- NA
+  } else {
+    Chem.df[i,"EXP"] <- sub('^.*<TD [^>]*>([^<]*)</TD>.*$', "\\1", EXP)
+  }
+}
+
+
 
 
 #write.csv(Chem.df, file = "ChemTox2.csv")
