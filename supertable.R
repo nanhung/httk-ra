@@ -5,6 +5,7 @@ if(!require(httk)) {
 Chem.df<-read.csv("ChemTox2.csv")
 no.Chem <- length(Chem.df[,1]) # The number of chemicals
 
+#
 Chem.df[,"ToxCast"]<-""
 Chem.df[,"Tox21"]<-""
 Chem.df[,"ExpoCast"]<-""
@@ -82,6 +83,31 @@ for(i in 604:no.Chem){
     Chem.df[i,"EXP"] <- sub('^.*<TD [^>]*>([^<]*)</TD>.*$', "\\1", EXP)
   }
 }
+
+
+#
+
+Chem.df[,"LogP Ave.exp"]<-""
+Chem.df[,"LogP Ave.prd"]<-""
+Chem.df[,"LogP Med.exp"]<-""
+Chem.df[,"LogP Med.prd"]<-""
+Chem.df[,"LogP Rng.exp"]<-""
+Chem.df[,"LogP Rng.prd"]<-""
+
+for(i in 1:100){
+  CAS<-Chem.df[i,2]
+  tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
+  Chem.df[i,"LogP Ave.exp"]<-tmp[grep('>LogP:',tmp)+3]
+  Chem.df[i,"LogP Ave.prd"]<-tmp[grep('>LogP:',tmp)+8]
+  Chem.df[i,"LogP Med.exp"]<-tmp[grep('>LogP:',tmp)+13]
+  Chem.df[i,"LogP Med.prd"]<-tmp[grep('>LogP:',tmp)+18]
+  Chem.df[i,"LogP Rng.exp"]<-tmp[grep('>LogP:',tmp)+23]
+  Chem.df[i,"LogP Rng.prd"]<-tmp[grep('>LogP:',tmp)+28]
+}
+
+CAS<-Chem.df[1,2]
+tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
+
 
 
 
