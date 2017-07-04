@@ -1,7 +1,7 @@
 library(httk) # for toxcast AC50
 
 # Generate the main data frame
-Chem.df<-read.csv("ChemData.csv")
+Chem.df<-read.csv("ChemData.csv", row.names = NULL)
 Chem.df[,"ToxCast"]<-""
 Chem.df[,"Tox21"]<-""
 Chem.df[,"ExpoCast"]<-""
@@ -199,13 +199,13 @@ Chem.df<-read.csv("ChemTox_v2.csv", header = T)
 no.Chem <- length(Chem.df[,1]) # The number of chemicals
 
 Chem.df<-Chem.df[c(4:6)]
-Chem.df[,"Ave.exp"]<-""
-Chem.df[,"Ave.prd"]<-""
-Chem.df[,"Med.exp"]<-""
-Chem.df[,"Med.prd"]<-""
-Chem.df[,"Rng.exp"]<-""
-Chem.df[,"Rng.prd"]<-""
-Chem.df[,"Deg"]<-""
+Chem.df[,"Boiling Point Ave.exp"]<-""
+Chem.df[,"Boiling Point Ave.prd"]<-""
+Chem.df[,"Boiling Point Med.exp"]<-""
+Chem.df[,"Boiling Point Med.prd"]<-""
+Chem.df[,"Boiling Point Rng.exp"]<-""
+Chem.df[,"Boiling Point Rng.prd"]<-""
+Chem.df[,"Boiling Point Deg"]<-""
 
 for(i in 1:no.Chem){
   CAS<-Chem.df[i,3]
