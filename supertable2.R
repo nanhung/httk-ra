@@ -145,15 +145,39 @@ for(i in tmp.df[,1]){ # Only Predited LogP
 }
 
 
+for(i in 401:614){
+  CAS<-Chem.df[i,3]
+  tmp<-readLines(paste("https://chem.nlm.nih.gov/chemidplus/rn/", CAS, sep = ""))
+  logP <- tmp[grep('log P',tmp)+2]
+  EXP <- tmp[grep('log P',tmp)+8]
+  if (identical(logP, character(0)) == TRUE) {
+    Chem.df[i,"logP"] <- NA
+  } else {
+    Chem.df[i,"logP"] <- sub('^.*<TD [^>]*>([^<]*)</TD>.*$', "\\1", logP)
+  }
+}
+
+#chemidplus
+Chem.df$chemidplus<-""
+for(i in 1:101){
+  CAS<-Chem.df[i,2]
+  tmp<-readLines(paste("https://chem.nlm.nih.gov/chemidplus/rn/", CAS, sep = ""))  
+  logP <- tmp[grep('log P',tmp)]
+  if (identical(tmp, character(0))== TRUE) {
+    Chem.df[i,"chemidplus"]<-3 # No information
+  } else if (identical(logP, character(0))== TRUE){
+    Chem.df[i,"chemidplus"]<-2 # No log P
+  } else { 
+    Chem.df[i,"chemidplus"]<-1 # Have data!
+  }
+}
 
 
 
-
-
-
+  
 
 truth <- sapply(Chem.df,is.character)
 df1 <- data.frame(cbind(sapply(Chem.df[,truth],trimws,which="both"),Chem.df[,!truth]))
 
-#write.csv(Chem.df, file = "ChemTox2.csv")
+#write.csv(Chem.df, file = "OrangeTox.csv")
 #write.csv(df1, file = "df1.csv")
