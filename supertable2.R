@@ -2,7 +2,7 @@
 if(!require(httk)) {
   install.packages("httk"); require(httk)}
 
-Chem.df<-read.csv("OrangeTox.csv", row.names=NULL)
+Chem.df<-read.csv("OrangeTox.csv", row.names=1)
 no.Chem <- length(Chem.df[,1]) # The number of chemicals
 
 #
@@ -173,11 +173,11 @@ for(i in 1:101){
 }
 
 
-
+Chem.df[,26]<-NULL
   
 
 truth <- sapply(Chem.df,is.character)
 df1 <- data.frame(cbind(sapply(Chem.df[,truth],trimws,which="both"),Chem.df[,!truth]))
 
-#write.csv(Chem.df, file = "OrangeTox.csv")
+#write.csv(Chem.df, file = "OrangeTox_v2.csv")
 #write.csv(df1, file = "df1.csv")
