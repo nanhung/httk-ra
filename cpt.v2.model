@@ -43,7 +43,7 @@ k_e = 0.1; lnk_e = log(.1);
 # Oral input modeling
 
 Absdose;
-IngDose    = 1.0; # ingested input (mg)
+IngDose    = 1.0; # ingested input (mg/kg)
 Fgutabs    = 1.0; #
 Period     = 0.0; # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0; # Absorption lagtime (h)
@@ -79,7 +79,7 @@ Dynamics {
 }
 
 CalcOutputs {
-  Oral_input_uM = Oral_input * 1000 / MW;
+  Oral_input_uM = Oral_input * 1000 / MW; # 1000 adjust kg to g for BW
   C_rest  = A_rest  / V_dist / MW * 1000;
   C_elim  = A_elim * 1000 / MW;
   A_total = A_rest + A_elim;
