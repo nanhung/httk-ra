@@ -31,7 +31,7 @@ k_e = 0.2564527;
 Simulation {
     #PrintStep (Oral_input, Q_rest, Q_elim, 0, 96, 0.25);
     PrintStep (Oral_input_uM, C_rest, C_elim, 0, 96, 0.25);
-    #PrintStep (Q_total, 0, 96, 0.25);
+    PrintStep (A_total, 0, 96, 0.25);
     #PrintStep (Q_rest, 0, 96, 0.25);
     #PrintStep (C_rest, 0, 96, 0.25);
     #PrintStep (Q_elim, 0, 96, 0.25);
