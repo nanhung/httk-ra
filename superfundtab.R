@@ -36,15 +36,16 @@ chem<-c(
   "METHOXYCHLOR",
   "2,4-DINITROPHENOL",
   "2,4-DINITROTOLUENE",
-  "DIMETHYLARSINIC ACID",
   "DICOFOL",
   "CRESOL, PARA-",
-  "PHENOL",
   "MERCURIC CHLORIDE",
   "DDT, O,P'-",
   "4,6-DINITRO-O-CRESOL",
   "1,2,3-TRICHLOROBENZENE",
-  "CHROMIUM, HEXAVALENT"
+  "CHROMIUM, HEXAVALENT",
+  "COBALT",
+  "NICKEL"
+  
 )
 
 CAS<-c(
@@ -81,15 +82,15 @@ CAS<-c(
 "72-43-5",
 "51-28-5",
 "121-14-2",
-"75-60-5",
 "115-32-2",
 "106-44-5",
-"108-95-2",
 "7487-94-7",
 "789-02-6",
 "534-52-1",
 "87-61-6",
-"18540-29-9"
+"18540-29-9",
+"7440-48-4",
+"7440-02-0"
 )
 
 Chem.df <- data.frame(chem, CAS)
@@ -143,7 +144,7 @@ Chem.df[,"Css.med_95pbtk.plasma.uM"]<-"" # median for total population
 Chem.df[,"Css.95perc_medpbtk.plasma.uM"]<-"" # 95% for total population
 Chem.df[,"Css.95perc_95pbtk.plasma.uM"]<-"" # 95% for total population
 
-for (i in 39:no.Chem){
+for (i in 42:no.Chem){
   cas<-Chem.df$CAS[i]
   md<-as.numeric(Chem.df$Expo.Total_median[i])
   u95<-as.numeric(Chem.df$Expo.Total_95perc[i])
@@ -156,11 +157,17 @@ for (i in 39:no.Chem){
   Chem.df[i,"Css.95perc_95pbtk.plasma.uM"] <- u95 * b
 }
 
-# 12
+# 12 HEPTACHLOR EPOXIDE
 # Missing metabolic clearance data for given species. Set default.to.human to true to substitute human value.
-# 16
+# 16 DI(2-ETHYLHEXYL)PHTHALATE
 # Missing protein binding data for given species. Set default.to.human to true to substitute human value.
-# 22 23 24 38 42
+# 22 LEAD
+# 23 CADMIUM
+# 24 ZINC
+# 36 MERCURIC CHLORIDE
+# 40 CHROMIUM, HEXAVALENT
+# 41 COBALT
+# 42 NICKEL
 # CAS number not found, use get_cheminfo() for valid CAS numbers or set chem.name= argument.
 
 Chem.df[,"Css.med_med.3cpt.plasma.uM"]<-"" # median for total population
@@ -168,7 +175,7 @@ Chem.df[,"Css.med_95.3cpt.plasma.uM"]<-"" # median for total population
 Chem.df[,"Css.95perc_med.3cpt.plasma.uM"]<-"" # 95% for total population
 Chem.df[,"Css.95perc_95.3cpt.plasma.uM"]<-"" # 95% for total population
 
-for (i in 1:no.Chem){
+for (i in 37:no.Chem){
   cas<-Chem.df$CAS[i]
   md<-as.numeric(Chem.df$Expo.Total_median[i])
   u95<-as.numeric(Chem.df$Expo.Total_95perc[i])
@@ -188,8 +195,10 @@ for (i in 1:no.Chem){
 # 22 LEAD
 # 23 CADMIUM
 # 24 ZINC
-# 38 MERCURIC CHLORIDE
-# 42 CHROMIUM, HEXAVALENT
+# 36 MERCURIC CHLORIDE
+# 40 CHROMIUM, HEXAVALENT
+# 41 COBALT
+# 42 NICKEL
 # CAS number not found, use get_cheminfo() for valid CAS numbers or set chem.name= argument.
 
 #write.csv(Chem.df, file = "SF42.csv")
