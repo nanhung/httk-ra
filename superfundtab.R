@@ -1,4 +1,6 @@
 # 1108
+# df<-read.csv('SF42.csv')
+# Chem.df<-df[2:ncol(df)]
 
 library("httk")
 
@@ -93,14 +95,17 @@ CAS<-c(
 "7440-02-0"
 )
 
+
 Chem.df <- data.frame(chem, CAS)
+
+no.Chem <- length(Chem.df[,1]) # The number of chemicals
 
 Chem.df[,"ToxCast"]<-""
 Chem.df[,"Tox21"]<-""
 Chem.df[,"ExpoCast"]<-""
 Chem.df[,"NHANES"]<-""
 
-no.Chem <- length(Chem.df[,1]) # The number of chemicals
+
 
 # Double check the excel table and httk (*some information are different*) 
 for (this.cas in Chem.df$CAS[1:no.Chem])
@@ -144,18 +149,21 @@ Chem.df[,"Css.med_95pbtk.plasma.uM"]<-"" # median for total population
 Chem.df[,"Css.95perc_medpbtk.plasma.uM"]<-"" # 95% for total population
 Chem.df[,"Css.95perc_95pbtk.plasma.uM"]<-"" # 95% for total population
 
-for (i in 42:no.Chem){
+for (i in 1:no.Chem){
   cas<-Chem.df$CAS[i]
   md<-as.numeric(Chem.df$Expo.Total_median[i])
   u95<-as.numeric(Chem.df$Expo.Total_95perc[i])
-  a<-calc_mc_css(chem.cas=cas, which.quantile=.5, output.units='uM', model='pbtk', httkpop=TRUE, default.to.human=T)
-  b<-calc_mc_css(chem.cas=cas, which.quantile=.95, output.units='uM', model='pbtk', httkpop=TRUE, default.to.human=T)
+  
+  # Use tryCatch to prevent the stopping by error
+  a<-tryCatch(calc_mc_css(chem.cas=cas, which.quantile=.5, output.units='uM', model='pbtk', httkpop=TRUE, default.to.human=T), error=function(err) NA)
+  b<-tryCatch(calc_mc_css(chem.cas=cas, which.quantile=.95, output.units='uM', model='pbtk', httkpop=TRUE, default.to.human=T), error=function(err) NA)
 
   Chem.df[i,"Css.med_medpbtk.plasma.uM"] <- md *a
   Chem.df[i,"Css.med_95pbtk.plasma.uM"] <- md * b
   Chem.df[i,"Css.95perc_medpbtk.plasma.uM"] <- u95 * a
   Chem.df[i,"Css.95perc_95pbtk.plasma.uM"] <- u95 * b
 }
+
 
 # 12 HEPTACHLOR EPOXIDE
 # Missing metabolic clearance data for given species. Set default.to.human to true to substitute human value.
@@ -175,18 +183,22 @@ Chem.df[,"Css.med_95.3cpt.plasma.uM"]<-"" # median for total population
 Chem.df[,"Css.95perc_med.3cpt.plasma.uM"]<-"" # 95% for total population
 Chem.df[,"Css.95perc_95.3cpt.plasma.uM"]<-"" # 95% for total population
 
-for (i in 37:no.Chem){
+for (i in 1:no.Chem){
   cas<-Chem.df$CAS[i]
   md<-as.numeric(Chem.df$Expo.Total_median[i])
   u95<-as.numeric(Chem.df$Expo.Total_95perc[i])
-  a<-calc_mc_css(chem.cas=cas, which.quantile=.5, output.units='uM', model='3compartmentss', httkpop=TRUE, default.to.human=T)
-  b<-calc_mc_css(chem.cas=cas, which.quantile=.95, output.units='uM', model='3compartmentss', httkpop=TRUE, default.to.human=T)
+  a<-tryCatch(calc_mc_css(chem.cas=cas, which.quantile=.5, output.units='uM', model='3compartmentss', httkpop=TRUE, default.to.human=T), error=function(err) NA)
+  b<-tryCatch(calc_mc_css(chem.cas=cas, which.quantile=.95, output.units='uM', model='3compartmentss', httkpop=TRUE, default.to.human=T), error=function(err) NA)
   
+  Chem.df[i,"Css.med_med.3cpt.plasma.uM"] <- md *a
   Chem.df[i,"Css.med_med.3cpt.plasma.uM"] <- md *a
   Chem.df[i,"Css.med_95.3cpt.plasma.uM"] <- md * b
   Chem.df[i,"Css.95perc_med.3cpt.plasma.uM"] <- u95 * a
   Chem.df[i,"Css.95perc_95.3cpt.plasma.uM"] <- u95 * b
 }
+
+
+
 
 # 12 HEPTACHLOR EPOXIDE
 # Missing metabolic clearance data for given species. Set default.to.human to true to substitute human value.
@@ -201,4 +213,33 @@ for (i in 37:no.Chem){
 # 42 NICKEL
 # CAS number not found, use get_cheminfo() for valid CAS numbers or set chem.name= argument.
 
+# Generate Toxicity Table w/ AC50
+tc.dt.sub <- tc.dt[`Activity Call`=="Active", 
+                   .(`Chemical Name`, CASRN, `Assay Endpoint`, `Activity Call`, `AC 50`)]
+
+Chem.tc.dt <- tc.dt.sub[tc.dt.sub$CASRN %in% Chem.df[1,2],]
+
+for(i in 1:no.Chem){
+  Chem.tc.dt <- rbind(Chem.tc.dt, tc.dt.sub[tc.dt.sub$CASRN %in% Chem.df[i,2],])
+}
+
+# Create Variables
+M<-as.matrix(Chem.tc.dt[,2])
+Chem.df[,"No.ToxData"]<-""
+Chem.df[,"Min.AC50"]<-""
+Chem.df[,"Max.AC50"]<-""
+
+for(i in 1:no.Chem){
+  tmp<-subset(Chem.tc.dt, CASRN==Chem.df$CAS[i])
+  Chem.df[i,"No.ToxData"]<-length(which(M==Chem.df$CAS[i]))
+  Chem.df[i,"Min.AC50"]<-min(tmp$`AC 50`)
+  Chem.df[i,"Max.AC50"]<-max(tmp$`AC 50`)
+}
+
+# Remove Inf
+tmp<-cbind(as.numeric(Chem.df[,18]),as.numeric(Chem.df[,19]))
+tmp[!is.finite(tmp)] <- NA
+Chem.df[, 18:19] <- tmp
+
 #write.csv(Chem.df, file = "SF42.csv")
+
