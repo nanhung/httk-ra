@@ -1,0 +1,70 @@
+"","Analyte","CASRN","SFO
+(mg/kg-day)-1","k
+e
+y","IUR
+(ug/m3)-1","k
+e
+y__1","RfDo
+(mg/kg-day)","k
+e
+y__2","RfCi
+(mg/m3)","k
+e
+y__3","v
+o
+l","muta-
+gen","GIABS","ABS","Csat
+(mg/kg)","Resident Soil
+(mg/kg)","key","Industrial Soil
+(mg/kg)","key__1","Resident Air
+(ug/m3)","key__2","Industrial Air
+(ug/m3)","key__3","Tapwater
+(ug/L)","key__4","MCL
+(ug/L)","Risk-based
+SSL
+(mg/kg)","key__5","MCL-based
+SSL
+(mg/kg)"
+"1","Aldrin","309-00-2",17,"I",0.0049,"I",3e-05,"I",NA,NA,"V",NA,1,NA,NA,0.039,"c*",0.18,"c",0.00057,"c",0.0025,"c",0.00092,"c",NA,0.00015,"c",NA
+"2","Azinphos-methyl","86-50-0",NA,NA,NA,NA,0.003,"A",0.01,"A",NA,NA,1,0.1,NA,190,"n",2500,"n",10,"n",44,"n",56,"n",NA,0.017,"n",NA
+"3","Benzidine","92-87-5",230,"I",0.067,"I",0.003,"I",NA,NA,NA,"M",1,0.1,NA,0.00053,"c",0.01,"c",1.5e-05,"c",0.00018,"c",0.00011,"c",NA,2.8e-07,"c",NA
+"4","Cadmium (Diet)","7440-43-9",NA,NA,0.0018,"I",0.001,"I",1e-05,"A",NA,NA,0.025,0.001,NA,71,"n",980,"n",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"5","Cadmium (Water)","7440-43-9",NA,NA,0.0018,"I",5e-04,"I",1e-05,"A",NA,NA,0.05,0.001,NA,NA,NA,NA,NA,0.0016,"c**",0.0068,"c**",9.2,"n","5",0.69,"n",0.38
+"6","Chlorpyrifos","2921-88-2",NA,NA,NA,NA,0.001,"A",NA,NA,NA,NA,1,0.1,NA,63,"n",820,"n",NA,NA,NA,NA,8.4,"n",NA,0.12,"n",NA
+"7","Chromium(VI)","18540-29-9",0.5,"C",0.084,"S",0.003,"I",1e-04,"I",NA,"M",0.025,NA,NA,0.3,"c",6.3,"c",1.2e-05,"c",0.00015,"c",0.035,"c",NA,0.00067,"c",NA
+"8","Cobalt","7440-48-4",NA,NA,0.009,"P",3e-04,"P",6e-06,"P",NA,NA,1,NA,NA,23,"n",350,"n",0.00031,"c*",0.0014,"c*",6,"n",NA,0.27,"n",NA
+"9","Cresol, p-","106-44-5",NA,NA,NA,NA,0.1,"A",0.6,"C",NA,NA,1,0.1,NA,6300,"n",82000,"n",630,"n",2600,"n",1900,"n",NA,1.5,"n",NA
+"10","DDD","72-54-8",0.24,"I",6.9e-05,"C",NA,NA,NA,NA,NA,NA,1,0.1,NA,2.3,"c",9.6,"c",0.041,"c",0.18,"c",0.032,"c",NA,0.0075,"c",NA
+"11","DDT","50-29-3",0.34,"I",9.7e-05,"I",5e-04,"I",NA,NA,NA,NA,1,0.03,NA,1.9,"c*",8.5,"c*",0.029,"c",0.13,"c",0.23,"c*",NA,0.077,"c*",NA
+"12","Diazinon","333-41-5",NA,NA,NA,NA,7e-04,"A",NA,NA,NA,NA,1,0.1,NA,44,"n",570,"n",NA,NA,NA,NA,10,"n",NA,0.065,"n",NA
+"13","Dieldrin","60-57-1",16,"I",0.0046,"I",5e-05,"I",NA,NA,NA,NA,1,0.1,NA,0.034,"c*",0.14,"c",0.00061,"c",0.0027,"c",0.0018,"c",NA,7.1e-05,"c",NA
+"14","Dinitro-o-cresol, 4,6-","534-52-1",NA,NA,NA,NA,8e-05,"X",NA,NA,NA,NA,1,0.1,NA,5.1,"n",66,"n",NA,NA,NA,NA,1.5,"n",NA,0.0026,"n",NA
+"15","Dinitrophenol, 2,4-","51-28-5",NA,NA,NA,NA,0.002,"I",NA,NA,NA,NA,1,0.1,NA,130,"n",1600,"n",NA,NA,NA,NA,39,"n",NA,0.044,"n",NA
+"16","Dinitrotoluene, 2,4-","121-14-2",0.31,"C",8.9e-05,"C",0.002,"I",NA,NA,NA,NA,1,0.102,NA,1.7,"c*",7.4,"c",0.032,"c",0.14,"c",0.24,"c",NA,0.00032,"c",NA
+"17","Disulfoton","298-04-4",NA,NA,NA,NA,4e-05,"I",NA,NA,NA,NA,1,0.1,NA,2.5,"n",33,"n",NA,NA,NA,NA,0.5,"n",NA,0.00094,"n",NA
+"18","Endosulfan","115-29-7",NA,NA,NA,NA,0.006,"I",NA,NA,"V",NA,1,NA,NA,470,"n",7000,"n",NA,NA,NA,NA,100,"n",NA,1.4,"n",NA
+"19","Endrin","72-20-8",NA,NA,NA,NA,3e-04,"I",NA,NA,NA,NA,1,0.1,NA,19,"n",250,"n",NA,NA,NA,NA,2.3,"n","2",0.092,"n",0.081
+"20","Ethion","563-12-2",NA,NA,NA,NA,5e-04,"I",NA,NA,NA,NA,1,0.1,NA,32,"n",410,"n",NA,NA,NA,NA,4.3,"n",NA,0.0085,"n",NA
+"21","Heptachlor","76-44-8",4.5,"I",0.0013,"I",5e-04,"I",NA,NA,"V",NA,1,NA,NA,0.13,"c",0.63,"c",0.0022,"c",0.0094,"c",0.0014,"c","0.4",0.00012,"c",0.033
+"22","Heptachlor Epoxide","1024-57-3",9.1,"I",0.0026,"I",1.3e-05,"I",NA,NA,"V",NA,1,NA,NA,0.07,"c*",0.33,"c*",0.0011,"c",0.0047,"c",0.0014,"c*","0.2",2.8e-05,"c*",0.0041
+"23","Hexachlorocyclohexane, Gamma- (Lindane)","58-89-9",1.1,"C",0.00031,"C",3e-04,"I",NA,NA,NA,NA,1,0.04,NA,0.57,"c*",2.5,"c",0.0091,"c",0.04,"c",0.042,"c*","0.2",0.00024,"c*",0.0012
+"24","~Lead and Compounds","7439-92-1",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1,NA,NA,400,NA,800,"L",0.15,"L",NA,NA,15,"L","15",NA,"L",14
+"25","~Mercuric Chloride (and other Mercury salts)","7487-94-7",NA,NA,NA,NA,3e-04,"I",3e-04,"S",NA,NA,0.07,NA,NA,23,"n",350,"n",0.31,"n",1.3,"n",5.7,"n","2",NA,"n",NA
+"26","Methoxychlor","72-43-5",NA,NA,NA,NA,0.005,"I",NA,NA,NA,NA,1,0.1,NA,320,"n",4100,"n",NA,NA,NA,NA,37,"n","40",2,"n",2.2
+"27","Nickel Soluble Salts","7440-02-0",NA,NA,0.00026,"C",0.02,"I",9e-05,"A",NA,NA,0.04,NA,NA,1500,"n",22000,"n",0.011,"c**",0.047,"c**",390,"n",NA,26,"n",NA
+"28","Parathion","56-38-2",NA,NA,NA,NA,0.006,"H",NA,NA,NA,NA,1,0.1,NA,380,"n",4900,"n",NA,NA,NA,NA,86,"n",NA,0.43,"n",NA
+"29","Pentachlorophenol","87-86-5",0.4,"I",5.1e-06,"C",0.005,"I",NA,NA,NA,NA,1,0.25,NA,1,"c",4,"c",0.55,"c",2.4,"c",0.041,"c","1",5.7e-05,"c",0.0014
+"30","~Bis(2-ethylhexyl)phthalate","117-81-7",0.014,"I",2.4e-06,"C",0.02,"I",NA,NA,NA,NA,1,0.1,NA,39,"c*",160,"c",1.2,"c",5.1,"c",5.6,"c*","6",1.3,"c*",1.4
+"31","~Dibutyl Phthalate","84-74-2",NA,NA,NA,NA,0.1,"I",NA,NA,NA,NA,1,0.1,NA,6300,"n",82000,"n",NA,NA,NA,NA,900,"n",NA,2.3,"n",NA
+"32","~Acenaphthene","83-32-9",NA,NA,NA,NA,0.06,"I",NA,NA,"V",NA,1,0.13,NA,3600,"n",45000,"n",NA,NA,NA,NA,530,"n",NA,5.5,"n",NA
+"33","~Benz[a]anthracene","56-55-3",0.1,"E",6e-05,"E",NA,NA,NA,NA,"V","M",1,0.13,NA,1.1,"c",21,"c",0.017,"c",0.2,"c",0.03,"c",NA,0.011,"c",NA
+"34","~Benzo[b]fluoranthene","205-99-2",0.1,"E",6e-05,"E",NA,NA,NA,NA,NA,"M",1,0.13,NA,1.1,"c",21,"c",0.017,"c",0.2,"c",0.25,"c",NA,0.3,"c",NA
+"35","~Fluoranthene","206-44-0",NA,NA,NA,NA,0.04,"I",NA,NA,NA,NA,1,0.13,NA,2400,"n",30000,"n",NA,NA,NA,NA,800,"n",NA,89,"n",NA
+"36","~Naphthalene","91-20-3",NA,NA,3.4e-05,"C",0.02,"I",0.003,"I","V",NA,1,0.13,NA,3.8,"c*",17,"c*",0.083,"c*",0.36,"c*",0.17,"c*",NA,0.00054,"c*",NA
+"37","Trichlorobenzene, 1,2,3-","87-61-6",NA,NA,NA,NA,8e-04,"X",NA,NA,"V",NA,1,NA,NA,63,"n",930,"n",NA,NA,NA,NA,7,"n",NA,0.021,"n",NA
+"38","Trichlorophenol, 2,4,5-","95-95-4",NA,NA,NA,NA,0.1,"I",NA,NA,NA,NA,1,0.1,NA,6300,"n",82000,"n",NA,NA,NA,NA,1200,"n",NA,4,"n",NA
+"39","Trichlorophenol, 2,4,6-","88-06-2",0.011,"I",3.1e-06,"I",0.001,"P",NA,NA,NA,NA,1,0.1,NA,49,"c**",210,"c**",0.91,"c",4,"c",4.1,"c**",NA,0.004,"c**",NA
+"40","Trifluralin","1582-09-8",0.0077,"I",NA,NA,0.0075,"I",NA,NA,"V",NA,1,NA,NA,90,"c**",420,"c*",NA,NA,NA,NA,2.6,"c*",NA,0.084,"c*",NA
+"41","Zinc and Compounds","7440-66-6",NA,NA,NA,NA,0.3,"I",NA,NA,NA,NA,1,NA,NA,23000,"n",350000,"nm",NA,NA,NA,NA,6000,"n",NA,370,"n",NA
+"42","ENDOSULFAN","115-29-7",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"43","DDT, O,P'-","789-02-6",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
