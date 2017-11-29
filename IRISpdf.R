@@ -1,3 +1,19 @@
+#Short citation:
+#  USEPA. IRIS: Aldrin.
+
+#Full citation:
+#  U.S. EPA. IRIS: Chemical Assessment Summary of Aldrin. Integrated Risk Information System, U.S. Environmental Protection Agency, Washington, DC.
+
+#Authors:
+#  U.S. Environmental Protection Agency
+
+#Title:
+#  IRIS: Chemical Assessment Summary of Aldrin
+
+#Full text url:
+#  https://cfpub.epa.gov/ncea/iris/iris_documents/documents/subst/0130_summary.pdf
+
+
 if(!require(readxl)) {
   install.packages("readxl"); require(readxl)}
 if(!require(gdata)) {
@@ -6,6 +22,8 @@ if(!require(gridExtra)) {
   install.packages("gridExtra"); require(gridExtra)}
 if(!require(httk)) {
   install.packages("httk"); require(httk)}
+
+
 
 
 Chem<-c(
@@ -50,7 +68,7 @@ Chem<-c(
   "1,2,3-TRICHLOROBENZENE",
   "CHROMIUM, HEXAVALENT",
   "COBALT",
-  "NICKEL"
+  "Nickel, soluble salts"
   
 )
 
@@ -117,7 +135,7 @@ IRISno<-c(
   "0026",
   "0014",
   "0122",
-  "0152",
+  "0156",
   "0285",
   "0121",
   "0327",
@@ -141,7 +159,7 @@ IRISno<-c(
   NA,
   "0147",
   NA,
-  NA
+  "0271"
 )
 
 Chem.df <- data.frame(Chem, CAS, IRISno)
@@ -149,12 +167,26 @@ no.Chem<-nrow(Chem.df)
 
 
 
-for (i in 1:4){
+for (i in 42){
   URL <- paste("https://cfpub.epa.gov/ncea/iris/iris_documents/documents/subst/",Chem.df$IRISno[i],"_summary.pdf", sep = "")
   filename<-paste(Chem.df$Chem[i], "-", Chem.df$IRISno[i], ".pdf", sep="")
   download.file(URL, filename, mode = 'wb')
 }
 
+# HAWC
 
+HAWC<-function(CAS){
+  i<-which(Chem.df == CAS, arr.ind=T)[1] # find location
+  cat("Short citation:","\n")
+  cat(paste("USEPA. IRIS: ", Chem.df[i,1], sep = ""),"\n")
+  cat("Full citation:","\n")
+  cat(paste("U.S. EPA. IRIS: Chemical Assessment Summary of ", Chem.df[i,1], ". Integrated Risk Information System, U.S. Environmental Protection Agency, Washington, DC.", sep = ""),"\n")
+  cat("Title:","\n")
+  cat(paste("IRIS: Chemical Assessment Summary of ", Chem.df[i,1], sep = ""),"\n")
+  cat("Authors:","\n")
+  cat("U.S. Environmental Protection Agency","\n")
+  cat("Full text url:","\n")
+  cat(paste("https://cfpub.epa.gov/ncea/iris/iris_documents/documents/subst/",Chem.df$IRISno[i],"_summary.pdf", sep = ""),"\n")
+}
 
-
+HAWC("7440-66-6")
