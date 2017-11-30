@@ -167,7 +167,7 @@ no.Chem<-nrow(Chem.df)
 
 
 
-for (i in 42){
+for (i in 20){
   URL <- paste("https://cfpub.epa.gov/ncea/iris/iris_documents/documents/subst/",Chem.df$IRISno[i],"_summary.pdf", sep = "")
   filename<-paste(Chem.df$Chem[i], "-", Chem.df$IRISno[i], ".pdf", sep="")
   download.file(URL, filename, mode = 'wb')
@@ -189,4 +189,4 @@ HAWC<-function(CAS){
   cat(paste("https://cfpub.epa.gov/ncea/iris/iris_documents/documents/subst/",Chem.df$IRISno[i],"_summary.pdf", sep = ""),"\n")
 }
 
-HAWC("7440-66-6")
+HAWC("95-95-4")

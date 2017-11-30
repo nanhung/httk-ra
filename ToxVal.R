@@ -320,6 +320,10 @@ tmp<-cbind(as.numeric(Chem.df[,18]),as.numeric(Chem.df[,19]))
 tmp[!is.finite(tmp)] <- NA
 Chem.df[, 18:19] <- tmp
 
+#
+Chem.df$`RSL-IUR`<- NULL
+Chem.df$`RSL-RfCi`<- NULL
+Chem.df$`OEHHA-IUR`<- NULL
 
 # Create report
 #pdf("ToxVal.pdf", height=14, width=22)
