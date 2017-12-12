@@ -15,8 +15,7 @@
 States  = {A_rest,          # ~           rest compartment
            A_elim};         # ~           eliminated
 
-Outputs = {Oral_input_uM,
-           C_rest,         # Quantity in rest compartment
+Outputs = {C_rest,         # Quantity in rest compartment (uM)
            C_elim,
            A_total,        # Total quantity for mass balance
            lnC_rest};        
@@ -28,10 +27,10 @@ Inputs  = {Oral_input};     # Drug input in micromoles
 # Parameters
 # ------------------------
 
+BW = 70; # Body weight
 
 # Chemical Parameters
-MW;   # Molecualar Weight
-
+MW = 100;   # Molecualar Weight
 
 # Volumes (L)
 V_dist = 1; lnV_dist = log(1.);
@@ -69,7 +68,7 @@ Ve_C_rest; Ve_lnC_rest;
 
 
 Initialize{
-    Absdose = IngDose * Fgutabs;
+    Absdose = IngDose * Fgutabs * BW; 
 }
 
 
@@ -79,9 +78,8 @@ Dynamics {
 }
 
 CalcOutputs {
-  Oral_input_uM = Oral_input * 1000 / MW; # 1000 adjust kg to g for BW
-  C_rest  = A_rest  / V_dist / MW * 1000;
-  C_elim  = A_elim * 1000 / MW;
+  C_rest  = A_rest / V_dist / MW * 1000; # uM
+  C_elim  = A_elim / MW * 1000;
   A_total = A_rest + A_elim;
 
   lnC_rest  = (C_rest > 0 ? log(C_rest):-20.); 
