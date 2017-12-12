@@ -1,5 +1,5 @@
 Integrate(Lsodes, 1.0e-5, 1e-8, 1);
-MCMC("theoph_groups_1234.csv", "", "", 20000, 0, 20, 20000, 1234); # Full calibration
+MCMC("theoph_groups_1234.csv", "", "", 2000, 0, 20, 2000, 1234); # Full calibration
 
 
 Level { # Population Level
@@ -11,10 +11,8 @@ Level { # Population Level
 # Remove the ... and fill these in
 # ======================================
 
-#Distrib(M_lnV_dist,TruncNormal, -0.4831644, 0.2741961, -2.110483, -0.08538681);
-#Distrib(M_lnk_e, TruncNormal, -1.662183, 0.4658197, -3.031792, 0.1113578);
-Distrib(M_lnV_dist, Uniform, -2.829878, -0.03702585);
-Distrib(M_lnk_e, Uniform, -2.892829, -0.03061297);
+Distrib(M_lnV_dist, Uniform, -1.021558, -0.1271194);
+Distrib(M_lnk_e, Uniform, -2.464244, -0.7208429);
 
 
 Distrib(V_lnV_dist, InvGamma, 2.25, 0.3125);
@@ -38,7 +36,7 @@ MW = 180.17; # Theophylline
 
 Fgutabs    = 0.98;
 IngDose    = 4.02;   # ingested dose (mg)
-Period     = 24;    # period of the exposure/no exposure cycle (h)
+Period     = 48;    # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0;   # Absorption lagtime (h)
 k_a        = 1.0;   # Intestinal absortion rate (/h)
 
@@ -57,7 +55,7 @@ MW = 180.17; # Theophylline
 
 Fgutabs    = 0.98;
 IngDose    = 5.50;   # ingested dose (mg)
-Period     = 24;    # period of the exposure/no exposure cycle (h)
+Period     = 48;    # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0;   # Absorption lagtime (h)
 k_a        = 1.0;   # Intestinal absortion rate (/h)
 
