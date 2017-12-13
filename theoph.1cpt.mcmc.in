@@ -12,7 +12,7 @@ MW = 180.17; # Theophylline MW
 Period     = 48;    # period of the exposure/no exposure cycle (h)
 Tlag       = 0.0;   # Absorption lagtime (h)
 k_a        = 1;   # Intestinal absortion rate (/h)
-#Fgutabs    = 0.98;
+Fgutabs    = 0.98;
 
 # Population parameters to be calibrated
 # ======================================
@@ -21,15 +21,15 @@ k_a        = 1;   # Intestinal absortion rate (/h)
 # Remove the ... and fill these in
 # ======================================
 
-Distrib(M_lnV_dist, Uniform, -3, 3);
+Distrib(M_lnV_dist, Uniform, -1, -0.1);
+Distrib(M_lnk_e, Uniform, -2.5, -0.7);
 #Distrib(M_lnk_a, Uniform, -3, 3);
-Distrib(M_lnk_e, Uniform, -3, 3);
-Distrib(M_Fgutabs, Uniform, 0., 1);
+#Distrib(M_Fgutabs, Uniform, 0., 1);
 
 Distrib(V_lnV_dist, InvGamma, 2.25, 0.3125);
-#Distrib(V_lnk_a, InvGamma, 2.25, 0.3125);
 Distrib(V_lnk_e, InvGamma, 2.25, 0.3125);
-Distrib(V_Fgutabs, InvGamma, 2.25, 0.3125);
+#Distrib(V_lnk_a, InvGamma, 2.25, 0.3125);
+#Distrib(V_Fgutabs, InvGamma, 2.25, 0.3125);
 
 Distrib(Ve_lnC_rest, LogUniform, 0.01, 0.5);
 
@@ -37,10 +37,10 @@ Likelihood(Data(lnC_rest), Normal_v, Prediction(lnC_rest), Ve_lnC_rest);
 
 
 Level { # Group Level
-Distrib(lnV_dist, TruncNormal_v, M_lnV_dist, V_lnV_dist,  -3, 3);
+Distrib(lnV_dist, TruncNormal_v, M_lnV_dist, V_lnV_dist,  -1, 0.1);
+Distrib(lnk_e, TruncNormal_v, M_lnk_e, V_lnk_e, -2.5, -0.7);
 #Distrib(lnk_a, TruncNormal_v, M_lnk_a, V_lnk_a, -3, 3);
-Distrib(lnk_e, TruncNormal_v, M_lnk_e, V_lnk_e, -3, 3);
-Distrib(Fgutabs, TruncNormal_v, M_Fgutabs, V_Fgutabs, 0., 1);
+#Distrib(Fgutabs, TruncNormal_v, M_Fgutabs, V_Fgutabs, 0., 1);
 
 Level { # Group A
 Simulation { # Sim. 1
