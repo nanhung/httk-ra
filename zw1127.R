@@ -1,6 +1,50 @@
 if(!require(httk)) {
   install.packages("httk"); require(httk)}
 
+# 1218
+substance.name<-c("BENZO(A)ANTHRACENE",
+                  "HEXACHLOROCYCLOHEXANE, GAMMA-",
+                  "HEPTACHLOR EPOXIDE",
+                  "DI(2-ETHYLHEXYL)PHTHALATE",
+                  "BENZO(B)FLUORANTHENE",
+                  "DDD, P,P'-",
+                  "CRESOL, PARA-"
+)
+
+CAS<-c("56-55-3",
+       "58-89-9",
+       "1024-57-3",
+       "117-81-7",
+       "205-99-2",
+       "72-54-8",
+       "106-44-5")
+
+MW<-c(228.29,
+      290.83,
+      389.32,
+      390.56,
+      252.32,
+      320.04,
+      108.13)
+
+`RSD_1e-4`<-c(1.00E-03,
+              9.09E-05,
+              1.10E-05,
+              7.14E-03,
+              1.00E-03,
+              4.17E-04,
+              5.00E-03)
+
+`RSD_1e-6`<-c(1.00E-03,
+              9.09E-05,
+              1.10E-05,
+              7.14E-03,
+              1.00E-03,
+              4.17E-04,
+              5.00E-03)
+
+
+#
 substance.name<-c("2,4-D",
                   "HEXAZINONE",
                   "DIURON",
@@ -211,3 +255,5 @@ for (i in 1:no.Chem){
 }
 
 write.csv(Chem.df, file = "RfD2uM.csv")
+
+
