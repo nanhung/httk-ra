@@ -27,21 +27,50 @@ MW<-c(228.29,
       320.04,
       108.13)
 
-`RSD_1e-4`<-c(1.00E-03,
-              9.09E-05,
-              1.10E-05,
-              7.14E-03,
-              1.00E-03,
-              4.17E-04,
-              5.00E-03)
+RSD_upr<-c(1.00E-03,
+           9.09E-05,
+           1.10E-05,
+           7.14E-03,
+           1.00E-03,
+           4.17E-04,
+           5.00E-03)
 
-`RSD_1e-6`<-c(1.00E-03,
-              9.09E-05,
-              1.10E-05,
-              7.14E-03,
-              1.00E-03,
-              4.17E-04,
-              5.00E-03)
+RSD_lwr<-c(1.00E-05,
+           9.09E-07,
+           1.10E-07,
+           7.14E-05,
+           1.00E-05,
+           4.17E-06,
+           5.00E-05)
+
+Chem.df <- data.frame(substance.name, CAS, RSD_upr, RSD_lwr)
+
+no.Chem<-nrow(Chem.df)
+
+Chem.df[,"Css.upr_medpbtk.plasma.uM"]<-"" # 1e-4 for total population
+Chem.df[,"Css.upr_95pbtk.plasma.uM"]<-"" # 1e-4 for total population
+Chem.df[,"Css.lwr_medpbtk.plasma.uM"]<-"" # 1e-6 for total population
+Chem.df[,"Css.lwr_95pbtk.plasma.uM"]<-"" # 1e-6 for total population
+
+
+for (i in 1:no.Chem){
+  cas<-Chem.df$CAS[i]
+  upr<-as.numeric(Chem.df$RSD_upr[i])
+  lwr<-as.numeric(Chem.df$RSD_lwr[i])
+  
+  # Use tryCatch to prevent the stopping by error
+  a<-tryCatch(calc_mc_css(chem.cas=cas, which.quantile=.5, output.units='uM', model='pbtk', httkpop=TRUE, default.to.human=T, Funbound.plasma.pc.correction = FALSE), error=function(err) NA)
+  b<-tryCatch(calc_mc_css(chem.cas=cas, which.quantile=.95, output.units='uM', model='pbtk', httkpop=TRUE, default.to.human=T, Funbound.plasma.pc.correction = FALSE), error=function(err) NA)
+  
+  Chem.df[i,"Css.upr_medpbtk.plasma.uM"] <- upr *a
+  Chem.df[i,"Css.upr_95pbtk.plasma.uM"] <- upr * b
+  Chem.df[i,"Css.lwr_medpbtk.plasma.uM"] <- lwr * a
+  Chem.df[i,"Css.lwr_95pbtk.plasma.uM"] <- lwr * b
+}
+
+Chem.info<-get_cheminfo(info="all")
+write.csv(Chem.info, file = "Cheminfo.csv")
+write.csv(Chem.df, file = "RSD2uM.csv")
 
 
 #
