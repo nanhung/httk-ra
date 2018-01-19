@@ -64,7 +64,7 @@ for (this.cas in Chem.df$CAS[1:no.Chem])
 # Boiling point ----
 View(Chem.df[,9:14])
 
-for(i in 209:no.Chem){
+for(i in 1:no.Chem){
   CAS<-Chem.df$CAS[i]
   tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
   Chem.df[i,"Boiling Point Ave.exp"]<-substr(tmp[grep('>Boiling Point<',tmp)+3][1], 25, 50)
@@ -73,10 +73,42 @@ for(i in 209:no.Chem){
   Chem.df[i,"Boiling Point Med.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+18][1], 25, 50)
   Chem.df[i,"Boiling Point Rng.exp"]<-substr(tmp[grep('>Boiling Point<',tmp)+23][1], 25, 50)
   Chem.df[i,"Boiling Point Rng.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+28][1], 25, 50)
+  Chem.df[i,"MW"]<-substr(tmp[grep('>Average Mass:<',tmp)][1], 55, 60)
+  logP<-tmp[grep('>LogP:',tmp)+3]
+  if (identical(logP, character(0)) == TRUE) {
+    Chem.df[i,"LogP Ave.exp"] <- NA
+  } else {
+    Chem.df[i,"LogP Ave.exp"]<-tmp[grep('>LogP:',tmp)+3]
+  }
+  if (identical(logP, character(0)) == TRUE) {
+    Chem.df[i,"LogP Ave.prd"] <- NA
+  } else {
+    Chem.df[i,"LogP Ave.prd"]<-tmp[grep('>LogP:',tmp)+8]
+  }
+  if (identical(logP, character(0)) == TRUE) {
+    Chem.df[i,"LogP Med.exp"] <- NA
+  } else {
+    Chem.df[i,"LogP Med.exp"]<-tmp[grep('>LogP:',tmp)+13]
+  }
+  if (identical(logP, character(0)) == TRUE) {
+    Chem.df[i,"LogP Med.prd"] <- NA
+  } else {
+    Chem.df[i,"LogP Med.prd"]<-tmp[grep('>LogP:',tmp)+18]
+  }
+  if (identical(logP, character(0)) == TRUE) {
+    Chem.df[i,"LogP Rng.exp"] <- NA
+  } else {
+    Chem.df[i,"LogP Rng.exp"]<-tmp[grep('>LogP:',tmp)+23]
+  }
+  if (identical(logP, character(0)) == TRUE) {
+    Chem.df[i,"LogP Rng.prd"] <- NA
+  } else {
+    Chem.df[i,"LogP Rng.prd"]<-tmp[grep('>LogP:',tmp)+28]
+  }
 }
 
-
-tmp.df <- Chem.df[grep("class=", Chem.df$`Boiling Point Ave.exp`), ] # detect the wrong data
+# detect the wrong data
+tmp.df <- Chem.df[grep("class=", Chem.df$`Boiling Point Ave.exp`), ]
 
 for(i in as.numeric(row.names(tmp.df))){
   CAS<-Chem.df$CAS[i]
@@ -85,32 +117,12 @@ for(i in as.numeric(row.names(tmp.df))){
   Chem.df[i,"Boiling Point Ave.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+3][1], 56, 58)
   Chem.df[i,"Boiling Point Med.exp"]<-""
   Chem.df[i,"Boiling Point Med.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+9][1], 56, 58)
-  Chem.df[i,"Boiling Point Rng.prd"]<-""
+  Chem.df[i,"Boiling Point Rng.exp"]<-""
   Chem.df[i,"Boiling Point Rng.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+15][1], 60, 69)
-  Chem.df[i,"Boiling Point Deg"]<-substr(tmp[grep('>Boiling Point<',tmp)+20][1], 61, 61)
 }
 
 #write.csv(Chem.df, file = "0118SF.csv")
 
-# Molecular Weight ----
-
-for(i in 1:no.Chem){
-  
-  
-  CAS<-Chem.df$CAS[i]
-  tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
-  Chem.df[i,"MW"]<-substr(tmp[grep('>Average Mass:<',tmp)+1][1], 61, 61)
-}
-
-
-
-
-for(i in 1:no.Chem){
-  CAS<-Chem.df$CAS[i]
-  tmp<-readLines(paste("http://www.sigmaaldrich.com/catalog/search?term=", CAS,"&interface=CAS%20No.&N=0+&mode=partialmax&lang=en&region=US&focus=product", sep = "" ))
-  match <- tmp[grep('Molecular Weight',tmp)][1]
-  Chem.df[i,"MW"]<-gsub('^.*<span [^>]*>([^<]*)</span>.*$','\\1', match)
-}
 
 # LogP ----
 for(i in 1:no.Chem){
