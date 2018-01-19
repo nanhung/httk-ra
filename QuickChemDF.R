@@ -6,7 +6,9 @@ if(!require(stringr)) {
 # Generate the main data frame
 df<-read.csv("ToxValFull_data_ouput-corrected_Liver_noncancer.csv", row.names = NULL)
 Chem.df<-df[,1:2]
-Chem.df[146:148,2]<-"37764253"
+
+# Add lose CAS
+Chem.df[146:148,2]<-"37764253" 
 Chem.df[221,2]<-"121776338"
 
 ##
@@ -26,7 +28,7 @@ for(i in 1:no.Chem){
   Chem.df[i,"CAS"]<-stringi::stri_reverse(df2[i,"dash"])
 }
 
-# 
+# Add Information ----
 Chem.df[,"httk"]<-""
 Chem.df[,"ToxCast"]<-""
 Chem.df[,"Tox21"]<-""
@@ -46,10 +48,6 @@ Chem.df[,"LogP Med.prd"]<-""
 Chem.df[,"LogP Rng.exp"]<-""
 Chem.df[,"LogP Rng.prd"]<-""
 
-
-# Information ----
-
-# Double check the excel table and httk (*some information are different*) 
 for (this.cas in Chem.df$CAS[1:no.Chem])
 {
   this.index <- Chem.df$CAS==this.cas
@@ -59,7 +57,6 @@ for (this.cas in Chem.df$CAS[1:no.Chem])
   if (is.nhanes(this.cas)) Chem.df[this.index,"NHANES"] <- 1  # 1 = yes
   if (is.expocast(this.cas)) Chem.df[this.index,"ExpoCast"] <- 1
 }
-
 
 for(i in 1:no.Chem){
   CAS<-Chem.df$CAS[i]
@@ -107,34 +104,44 @@ for(i in 1:no.Chem){
 View(Chem.df[,9:21]) # Check error
 
 
-# detect the wrong data
-tmp.df <- Chem.df[grep("class=", Chem.df$`Boiling Point Ave.exp`), ] # Boiling Point
+# Detect the data error in Boiling Point and repair
+tmp.df <- Chem.df[grep("class=", Chem.df$`Boiling Point Ave.exp`), ] 
 
+#for(i in 48){
 for(i in as.numeric(row.names(tmp.df))){
   CAS<-Chem.df$CAS[i]
   tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
   Chem.df[i,"Boiling Point Ave.exp"]<-""
-  Chem.df[i,"Boiling Point Ave.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+3][1], 56, 58)
+  Chem.df[i,"Boiling Point Ave.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+4][1], 30, 40)
   Chem.df[i,"Boiling Point Med.exp"]<-""
-  Chem.df[i,"Boiling Point Med.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+9][1], 56, 58)
+  Chem.df[i,"Boiling Point Med.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+10][1], 30, 40)
   Chem.df[i,"Boiling Point Rng.exp"]<-""
-  Chem.df[i,"Boiling Point Rng.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+15][1], 60, 69)
+  Chem.df[i,"Boiling Point Rng.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+16][1], 30, 50)
 }
 
+# Detect the data error in LogP and repair
 tmp.df <- Chem.df[grep("class=", Chem.df$`LogP Ave.exp`), ] # LogP
 
-#for(i in 1:no.Chem){
+#for(i in 1){
 for(i in as.numeric(row.names(tmp.df))){
   CAS<-Chem.df$CAS[i]
   tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
   Chem.df[i,"LogP Ave.exp"]<-""
-  Chem.df[i,"LogP Ave.prd"]<-substr(tmp[grep('>LogP:',tmp)+4][1], 30, 40)
+  Chem.df[i,"LogP Ave.prd"]<-substr(tmp[grep('>LogP:',tmp)+4][1], 30, 45)
   Chem.df[i,"LogP Med.exp"]<-""
-  Chem.df[i,"LogP Med.prd"]<-substr(tmp[grep('>LogP:',tmp)+10][1], 30, 40)
+  Chem.df[i,"LogP Med.prd"]<-substr(tmp[grep('>LogP:',tmp)+10][1], 30, 45)
   Chem.df[i,"LogP Rng.exp"]<-""
   Chem.df[i,"LogP Rng.prd"]<-substr(tmp[grep('>LogP:',tmp)+16][1], 35, 50)
 }
 
-View(Chem.df[1:10,9:21]) # Check error
+View(Chem.df[,9:21]) # Check error
+
+#
+tmp.df <- Chem.df[grep("class=", Chem.df$`Boiling Point Rng.prd`), ] 
+for(i in as.numeric(row.names(tmp.df))){
+  Chem.df[i,"Boiling Point Rng.prd"]<-""
+}
+
+View(Chem.df) # Final check
 
 #write.csv(Chem.df, file = "0118SF.csv")
