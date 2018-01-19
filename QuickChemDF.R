@@ -40,6 +40,7 @@ Chem.df[,"Boiling Point Med.exp"]<-""
 Chem.df[,"Boiling Point Med.prd"]<-""
 Chem.df[,"Boiling Point Rng.exp"]<-""
 Chem.df[,"Boiling Point Rng.prd"]<-""
+Chem.df[,"Boiling Point Deg"]<-""
 Chem.df[,"MW"]<-"" 
 Chem.df[,"LogP Ave.exp"]<-""
 Chem.df[,"LogP Ave.prd"]<-""
@@ -47,6 +48,7 @@ Chem.df[,"LogP Med.exp"]<-""
 Chem.df[,"LogP Med.prd"]<-""
 Chem.df[,"LogP Rng.exp"]<-""
 Chem.df[,"LogP Rng.prd"]<-""
+
 
 for (this.cas in Chem.df$CAS[1:no.Chem])
 {
@@ -58,7 +60,7 @@ for (this.cas in Chem.df$CAS[1:no.Chem])
   if (is.expocast(this.cas)) Chem.df[this.index,"ExpoCast"] <- 1
 }
 
-for(i in 1:no.Chem){
+for(i in 309:no.Chem){
   CAS<-Chem.df$CAS[i]
   tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
   Chem.df[i,"Boiling Point Ave.exp"]<-substr(tmp[grep('>Boiling Point<',tmp)+3][1], 25, 50)
@@ -67,6 +69,7 @@ for(i in 1:no.Chem){
   Chem.df[i,"Boiling Point Med.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+18][1], 25, 50)
   Chem.df[i,"Boiling Point Rng.exp"]<-substr(tmp[grep('>Boiling Point<',tmp)+23][1], 25, 50)
   Chem.df[i,"Boiling Point Rng.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+28][1], 25, 50)
+  Chem.df[i,"Boiling Point Deg"]<-substr(tmp[grep('>Boiling Point<',tmp)+33][1], 25, 50)
   Chem.df[i,"MW"]<-substr(tmp[grep('>Average Mass:<',tmp)][1], 55, 60)
   logP<-tmp[grep('>LogP:',tmp)+3]
   if (identical(logP, character(0)) == TRUE) {
@@ -144,4 +147,4 @@ for(i in as.numeric(row.names(tmp.df))){
 
 View(Chem.df) # Final check
 
-#write.csv(Chem.df, file = "0118SF.csv")
+write.csv(Chem.df, file = "0119SF.csv", row.names=F)
