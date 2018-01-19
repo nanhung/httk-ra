@@ -61,9 +61,6 @@ for (this.cas in Chem.df$CAS[1:no.Chem])
 }
 
 
-# Boiling point ----
-View(Chem.df[,9:14])
-
 for(i in 1:no.Chem){
   CAS<-Chem.df$CAS[i]
   tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
@@ -107,8 +104,11 @@ for(i in 1:no.Chem){
   }
 }
 
+View(Chem.df[,9:21]) # Check error
+
+
 # detect the wrong data
-tmp.df <- Chem.df[grep("class=", Chem.df$`Boiling Point Ave.exp`), ]
+tmp.df <- Chem.df[grep("class=", Chem.df$`Boiling Point Ave.exp`), ] # Boiling Point
 
 for(i in as.numeric(row.names(tmp.df))){
   CAS<-Chem.df$CAS[i]
@@ -121,58 +121,20 @@ for(i in as.numeric(row.names(tmp.df))){
   Chem.df[i,"Boiling Point Rng.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+15][1], 60, 69)
 }
 
-#write.csv(Chem.df, file = "0118SF.csv")
-
-
-# LogP ----
-for(i in 1:no.Chem){
-  CAS<-Chem.df$CAS[i]
-  tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
-  logP<-tmp[grep('>LogP:',tmp)+3]
-  if (identical(logP, character(0)) == TRUE) {
-    Chem.df[i,"LogP Ave.exp"] <- NA
-  } else {
-    Chem.df[i,"LogP Ave.exp"]<-tmp[grep('>LogP:',tmp)+3]
-  }
-  if (identical(logP, character(0)) == TRUE) {
-    Chem.df[i,"LogP Ave.prd"] <- NA
-  } else {
-    Chem.df[i,"LogP Ave.prd"]<-tmp[grep('>LogP:',tmp)+8]
-  }
-  if (identical(logP, character(0)) == TRUE) {
-    Chem.df[i,"LogP Med.exp"] <- NA
-  } else {
-    Chem.df[i,"LogP Med.exp"]<-tmp[grep('>LogP:',tmp)+13]
-  }
-  if (identical(logP, character(0)) == TRUE) {
-    Chem.df[i,"LogP Med.prd"] <- NA
-  } else {
-    Chem.df[i,"LogP Med.prd"]<-tmp[grep('>LogP:',tmp)+18]
-  }
-  if (identical(logP, character(0)) == TRUE) {
-    Chem.df[i,"LogP Rng.exp"] <- NA
-  } else {
-    Chem.df[i,"LogP Rng.exp"]<-tmp[grep('>LogP:',tmp)+23]
-  }
-  if (identical(logP, character(0)) == TRUE) {
-    Chem.df[i,"LogP Rng.prd"] <- NA
-  } else {
-    Chem.df[i,"LogP Rng.prd"]<-tmp[grep('>LogP:',tmp)+28]
-  }
-}
-
-
-tmp.df <- Chem.df[grep("class=", Chem.df$`LogP Ave.exp`), ] # detect the wrong data
+tmp.df <- Chem.df[grep("class=", Chem.df$`LogP Ave.exp`), ] # LogP
 
 #for(i in 1:no.Chem){
 for(i in as.numeric(row.names(tmp.df))){
   CAS<-Chem.df$CAS[i]
   tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
   Chem.df[i,"LogP Ave.exp"]<-""
-  Chem.df[i,"LogP Ave.prd"]<-substr(tmp[grep('>LogP:',tmp)+3][1], 56, 59)
+  Chem.df[i,"LogP Ave.prd"]<-substr(tmp[grep('>LogP:',tmp)+4][1], 30, 40)
   Chem.df[i,"LogP Med.exp"]<-""
-  Chem.df[i,"LogP Med.prd"]<-substr(tmp[grep('>LogP:',tmp)+9][1], 56, 59)
+  Chem.df[i,"LogP Med.prd"]<-substr(tmp[grep('>LogP:',tmp)+10][1], 30, 40)
   Chem.df[i,"LogP Rng.exp"]<-""
-  Chem.df[i,"LogP Rng.prd"]<-substr(tmp[grep('>LogP:',tmp)+16][1], 35, 46)
+  Chem.df[i,"LogP Rng.prd"]<-substr(tmp[grep('>LogP:',tmp)+16][1], 35, 50)
 }
 
+View(Chem.df[1:10,9:21]) # Check error
+
+#write.csv(Chem.df, file = "0118SF.csv")
