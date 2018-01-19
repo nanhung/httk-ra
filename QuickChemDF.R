@@ -60,8 +60,7 @@ for (this.cas in Chem.df$CAS[1:no.Chem])
   if (is.expocast(this.cas)) Chem.df[this.index,"ExpoCast"] <- 1
 }
 
-#for(i in 1:no.Chem){
-for(i in 1:10){  
+for(i in 1:no.Chem){
   CAS<-Chem.df$CAS[i]
   tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
   Chem.df[i,"Boiling Point Ave.exp"]<-substr(tmp[grep('>Boiling Point<',tmp)+3][1], 25, 50)
@@ -124,9 +123,7 @@ for(i in 1:10){
 
 View(Chem.df[,9:21]) # Check error
 
-View(Chem.df[380,])
-
-#
+# repair the error
 tmp.df <- Chem.df[grep("class=", Chem.df$`Boiling Point Rng.prd`), ] 
 for(i in as.numeric(row.names(tmp.df))){
   Chem.df[i,"Boiling Point Rng.prd"]<-""
