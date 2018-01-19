@@ -7,6 +7,7 @@ if(!require(stringr)) {
 df<-read.csv("ToxValFull_data_ouput-corrected_Liver_noncancer.csv", row.names = NULL)
 Chem.df<-df[,1:2]
 
+##
 no.Chem <- length(Chem.df[,1]) # The number of chemicals
 
 # Add dash line to CAS
@@ -22,12 +23,20 @@ df2[,"rev"]<-""
 df2[,"dash"]<-""
 Chem.df[,"CAS"]<-""
 
-for(i in 1:200){
+for(i in 1:no.Chem){
   df2[i,"rev"]<-reverse_int(df2[i,1])
   df2[i,"dash"]<-str_replace_all(df2[i,"rev"], "(?<=^\\d{1}|^\\d{3})", "-")
   Chem.df[i,"CAS"]<-stringi::stri_reverse(df2[i,3])
 }
 
+#
+Chem.df[49,3]<-"135410-20-7"
+Chem.df[65,3]<-Chem.df[66,3]<-"129909-90-6"
+Chem.df[70,3]<-Chem.df[66,3]<-"131860-33-8"
+Chem.df[80,3]<-Chem.df[81,3]<-"177406-68-7"
+Chem.df[80,3]<-Chem.df[81,3]<-"32536-52-0"
+Chem.df[83:86,3]<-"32536-52-0"
+Chem.df[95,3]<-"149877-41-8"
 
 # 
 Chem.df[,"httk"]<-""
@@ -88,6 +97,7 @@ for(i in tmp.df[,1]){
   Chem.df[i,"Boiling Point Ave.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+3][1], 56, 58)
   Chem.df[i,"Boiling Point Med.exp"]<-""
   Chem.df[i,"Boiling Point Med.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+9][1], 56, 58)
+  Chem.df[i,"Boiling Point Rng.prd"]<-""
   Chem.df[i,"Boiling Point Rng.prd"]<-substr(tmp[grep('>Boiling Point<',tmp)+15][1], 60, 69)
   Chem.df[i,"Boiling Point Deg"]<-substr(tmp[grep('>Boiling Point<',tmp)+20][1], 61, 61)
 }
@@ -140,15 +150,10 @@ for(i in 1:no.Chem){
 }
 
 
-
 tmp.df <- Chem.df[grep("class=", Chem.df$`LogP Ave.exp`), ] # detect the wrong data
 
-
-
-
-
-for(i in 1:no.Chem){
-#for(i in as.numeric(row.names(tmp.df))){
+#for(i in 1:no.Chem){
+for(i in as.numeric(row.names(tmp.df))){
   CAS<-Chem.df$CAS[i]
   tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
   Chem.df[i,"LogP Ave.exp"]<-""
@@ -158,14 +163,4 @@ for(i in 1:no.Chem){
   Chem.df[i,"LogP Rng.exp"]<-""
   Chem.df[i,"LogP Rng.prd"]<-substr(tmp[grep('>LogP:',tmp)+16][1], 35, 46)
 }
-
-
-CAS<-Chem.df$CAS[2]
-tmp<-readLines(paste("https://comptox.epa.gov/dashboard/dsstoxdb/results?utf8=%E2%9C%93&search=", CAS, sep = ""))
-Chem.df[i,"LogP Ave.exp"]<-""
-Chem.df[i,"LogP Ave.prd"]<-substr(tmp[grep('>LogP:',tmp)+3][1], 56, 59)
-Chem.df[i,"LogP Med.exp"]<-""
-Chem.df[i,"LogP Med.prd"]<-substr(tmp[grep('>LogP:',tmp)+9][1], 56, 59)
-Chem.df[i,"LogP Rng.exp"]<-""
-Chem.df[i,"LogP Rng.prd"]<-substr(tmp[grep('>LogP:',tmp)+16][1], 35, 46)
 
