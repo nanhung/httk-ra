@@ -4,6 +4,8 @@ if(!require(readxl)) {
   install.packages("readxl"); require(readxl)}
 if(!require(httk)) {
   install.packages("httk"); require(httk)}
+if(!require(pdftools)) {
+  install.packages("pdftools"); require(pdftools)}
 
 Chem.df<-as.data.frame(read_excel("Chemicals_and_drugs.xlsx")[,c(1:2)])
 
@@ -29,10 +31,12 @@ for(i in 1:no.Chem){
 
 
 #
-Chem.df[,"Css.upr_medpbtk.plasma.uM"]<-"" # 1e-4 for total population
-Chem.df[,"Css.upr_95pbtk.plasma.uM"]<-"" # 1e-4 for total population
-Chem.df[,"Css.lwr_medpbtk.plasma.uM"]<-"" # 1e-6 for total population
-Chem.df[,"Css.lwr_95pbtk.plasma.uM"]<-"" # 1e-6 for total population
+Chem.df[,"Css.medpbtk.plasma.uM"]<-"" 
+Chem.df[,"Css.95pbtk.plasma.uM"]<-"" 
+Chem.df[,"Css.upr_medpbtk.plasma.uM"]<-"" 
+Chem.df[,"Css.upr_95pbtk.plasma.uM"]<-"" 
+Chem.df[,"Css.lwr_medpbtk.plasma.uM"]<-"" 
+Chem.df[,"Css.lwr_95pbtk.plasma.uM"]<-"" 
 
 
 for (i in 1:no.Chem){
@@ -41,14 +45,17 @@ for (i in 1:no.Chem){
   lwr<-as.numeric(Chem.df$Expo.Total_95perc[i])
   
   # Use tryCatch to prevent the stopping by error
-  a<-tryCatch(calc_mc_css(chem.cas=cas, which.quantile=.5, output.units='uM', model='pbtk', httkpop=TRUE, default.to.human=T, Funbound.plasma.pc.correction = FALSE), error=function(err) NA)
-  b<-tryCatch(calc_mc_css(chem.cas=cas, which.quantile=.95, output.units='uM', model='pbtk', httkpop=TRUE, default.to.human=T, Funbound.plasma.pc.correction = FALSE), error=function(err) NA)
+  a<-tryCatch(calc_mc_css(chem.cas=cas, which.quantile=.5, output.units='uM', model='pbtk', httkpop=TRUE, default.to.human=T), error=function(err) NA)
+  b<-tryCatch(calc_mc_css(chem.cas=cas, which.quantile=.95, output.units='uM', model='pbtk', httkpop=TRUE, default.to.human=T), error=function(err) NA)
   
+  Chem.df[i,"Css.medpbtk.plasma.uM"] <- a
+  Chem.df[i,"Css.95pbtk.plasma.uM"] <-b
   Chem.df[i,"Css.upr_medpbtk.plasma.uM"] <- upr *a
   Chem.df[i,"Css.upr_95pbtk.plasma.uM"] <- upr * b
   Chem.df[i,"Css.lwr_medpbtk.plasma.uM"] <- lwr * a
   Chem.df[i,"Css.lwr_95pbtk.plasma.uM"] <- lwr * b
 }
+
 
 #
 URL<-"https://www.cdc.gov/exposurereport/pdf/FourthReport_UpdatedTables_Volume1_Jan2017.pdf"
