@@ -1,4 +1,4 @@
-# system("./mcsim.cpt.v1.model theoph.1cpt.in")
+system("./mcsim.cpt.v1 theoph.1cpt.in")
 sim <- read.delim("theoph.1cpt.out", skip = 2)
 names(sim)
 

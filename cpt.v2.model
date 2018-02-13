@@ -73,7 +73,7 @@ Initialize{
 
 
 Dynamics {
-  dt (A_rest)  = Oral_input - k_e * A_rest;
+  dt (A_rest)  = k_a * Oral_input - k_e * A_rest;
   dt (A_elim)  = k_e * A_rest; 
 }
 
